@@ -1,14 +1,28 @@
 {
-  "name": "Tag It",
-  "version": "0.0.1",
-  "description": "Simply store, tag and seach web pages of interest",
-  "permissions": [
-  ],
-  "browser_action": {
-      "default_title": "Tag It",
-      "default_icon": "icon.png",
-      "default_popup": "popup.html"
-  },
-  "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'"
+    "name": "Tag It",
+    "version": "0.0.1",
+    "default_locale": "en",
+    "description": "Simply store, tag and seach web pages of interest",
+    "author": "ugo.matrangolo@gmail.com",
+    "permissions": [
+    ],
+    "browser_action": {
+        "default_title": "Tag It",
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "manifest_version": 2,
+    "commands": {
+        "save": {
+            "suggested_key": { "default": "Ctrl+X Ctrl+S"}
+            "description": "Stores the current page on local storage"
+        },
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default" : "Ctrl+X Ctrl+B"
+                "description": "Show all stored urls"
+            }
+        }
+
+    }
 }
