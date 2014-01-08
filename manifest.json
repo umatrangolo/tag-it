@@ -1,7 +1,6 @@
 {
     "name": "Tag It",
     "version": "0.0.1",
-    "default_locale": "en",
     "description": "Simply store, tag and seach web pages of interest",
     "author": "ugo.matrangolo@gmail.com",
     "permissions": [
@@ -14,15 +13,8 @@
     "manifest_version": 2,
     "commands": {
         "save": {
-            "suggested_key": { "default": "Ctrl+X Ctrl+S"}
+            "suggested_key": { "default": "Ctrl+S" },
             "description": "Stores the current page on local storage"
-        },
-        "_execute_browser_action": {
-            "suggested_key": {
-                "default" : "Ctrl+X Ctrl+B"
-                "description": "Show all stored urls"
-            }
         }
-
     }
 }
