@@ -1,20 +1,19 @@
 {
     "name": "Tag It",
     "version": "0.0.1",
-    "description": "Simply store, tag and seach web pages of interest",
+    "description": "Simply store, tag and search web pages of interest",
     "author": "ugo.matrangolo@gmail.com",
-    "permissions": [
-    ],
-    "browser_action": {
-        "default_title": "Tag It",
-        "default_icon": "icon.png",
-        "default_popup": "popup.html"
-    },
     "manifest_version": 2,
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "tagit.html"
+    },
     "commands": {
-        "save": {
-            "suggested_key": { "default": "Ctrl+S" },
-            "description": "Stores the current page on local storage"
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+S",
+                "mac": "MacCtrl+S"
+            }
         }
     }
 }
