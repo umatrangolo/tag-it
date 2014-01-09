@@ -4,6 +4,10 @@
     "description": "Simply store, tag and search web pages of interest",
     "author": "ugo.matrangolo@gmail.com",
     "manifest_version": 2,
+    "permissions": [ "tabs" ],
+    "background": {
+        "scripts": ["background.js"]
+    },
     "browser_action": {
         "default_icon": "icon.png",
         "default_popup": "tagit.html"
@@ -14,6 +18,13 @@
                 "default": "Ctrl+S",
                 "mac": "MacCtrl+S"
             }
+        },
+        "save": {
+            "suggested_key": {
+                "default": "Ctrl+J",
+                "mac": "MacCtrl+J"
+            },
+            "description": "Send a 'save' event to the extension"
         }
-    }
+   }
 }
