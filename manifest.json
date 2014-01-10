@@ -6,7 +6,11 @@
     "manifest_version": 2,
     "permissions": [ "tabs" ],
     "background": {
-        "scripts": [ "background.js" ]
+        "scripts": [
+            "background.js",
+            "store.js",
+            "journal.js"
+        ]
     },
     "browser_action": {
         "default_icon": "icon.png"

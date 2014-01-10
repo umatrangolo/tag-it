@@ -1,25 +1,3 @@
-var Store = {
-
-    save: function(url) {
-        if (localStorage.tagit == undefined) {
-            localStorage.tagit = JSON.stringify({
-                "journal": []
-            });
-        }
-
-        var tagit = JSON.parse(localStorage.tagit);
-        tagit.journal.unshift(url);
-
-        localStorage.tagit = JSON.stringify(tagit);
-
-        console.log("Tagged " + url + " has been saved in the Local Storage");
-    },
-
-    loadAll: function() {
-        console.log("Loading the journal ...");
-    }
-};
-
 chrome.commands.onCommand.addListener(function(command) {
     if (command == "save") {
         // TODO we assume that the current tab is the first one from the query
@@ -28,5 +6,9 @@ chrome.commands.onCommand.addListener(function(command) {
             Store.save(tab[0].url);
         });
     }
-    else Store.loadAll();
+    else {
+        chrome.tabs.create({ "url" : "main.html" }, function() {
+            console.log("Displaying Journal ...");
+        });
+    }
 });
