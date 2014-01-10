@@ -15,14 +15,14 @@
     "commands": {
         "_execute_browser_action": {
             "suggested_key": {
-                "default": "Ctrl+S",
-                "mac": "MacCtrl+S"
+                "default": "Ctrl+J",
+                "mac": "MacCtrl+J"
             }
         },
         "save": {
             "suggested_key": {
-                "default": "Ctrl+J",
-                "mac": "MacCtrl+J"
+                "default": "Ctrl+S",
+                "mac": "MacCtrl+S"
             },
             "description": "Send a 'save' event to the extension"
         }
