@@ -8,8 +8,7 @@
     "background": {
         "scripts": [
             "background.js",
-            "store.js",
-            "journal.js"
+            "store.js"
         ]
     },
     "browser_action": {
