@@ -1,5 +1,5 @@
 var Store = {
-    save: function(url) {
+    save: function(title, url) {
         if (localStorage.tagit == undefined) {
             localStorage.tagit = JSON.stringify({
                 "journal": []
@@ -7,8 +7,12 @@ var Store = {
         }
 
         var tagit = JSON.parse(localStorage.tagit);
-        tagit.journal.unshift(url);
+        var item = {
+            "url": url,
+            "title": title
+        };
 
+        tagit.journal.unshift(item);
         localStorage.tagit = JSON.stringify(tagit);
     },
 

@@ -6,7 +6,7 @@ var JournalGenerator = {
         journal.forEach(function(j) {
             var li = document.createElement('li');
 
-            li.innerHTML = '<a href="' + j + '">' + j + '</a>';
+            li.innerHTML = '<a href="' + j.url + '">' + j.title + '</a>';
             journalUl.appendChild(li);
         });
     }
