@@ -7,7 +7,7 @@ chrome.commands.onCommand.addListener(function(command) {
         });
     }
     else {
-        chrome.tabs.create({ "url" : "main.html" }, function() {
+        chrome.tabs.create({ "url" : "html/main.html" }, function() {
             console.log("Displaying Journal ...");
         });
     }
