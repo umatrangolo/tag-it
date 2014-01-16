@@ -8,12 +8,29 @@ var Store = {
 
         var tagit = JSON.parse(localStorage.tagit);
         var item = {
+            "id": Date.now(),
             "url": url,
-            "title": title
+            "title": title,
+            "deleted": false
         };
 
         tagit.journal.unshift(item);
         localStorage.tagit = JSON.stringify(tagit);
+    },
+
+    delete: function(id) {
+        if (localStorage.tagit != undefined) {
+            var tagit = JSON.parse(localStorage.tagit);
+
+            tagit.journal.forEach(
+                function(item) {
+                    if (item.id == id) {
+                        item.deleted = true;
+                    }
+                }
+            );
+            localStorage.tagit = JSON.stringify(tagit);
+        }
     },
 
     loadAll: function() {
