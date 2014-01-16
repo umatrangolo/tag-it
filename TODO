@@ -1,3 +1,5 @@
-@ Add a delete link for an item in the journal
+x Add a delete link for an item in the journal
 - Start CSS for the Journal page
 - Display a transparent V as feedback to Ctrl-S
+- The tab has to refresh itself each time the Journal changes
+- Do not use a list
