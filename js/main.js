@@ -5,16 +5,17 @@ var JournalGenerator = {
 
         journal.forEach(function(j) {
             if (!j.deleted) {
-                var li = document.createElement('li');
+                var p = document.createElement('p');
+                p.classList.add("journal-item");
 
-                // TODO there should be a better way!
-                li.innerHTML =
+                // TODO there should be a better way! --> React.js
+                p.innerHTML =
                     '<div id="journal-item-' + j.id + '">' +
                     '<button class="delete-journal-item" id="' + j.id + '" type="button">x</button>' +
                     '<a href="' + j.url + '">' + j.title + '</a>' +
                     '</div>';
 
-                journalUl.appendChild(li);
+                journalUl.appendChild(p);
             }
         });
 
