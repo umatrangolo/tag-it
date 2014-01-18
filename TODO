@@ -1,7 +1,9 @@
 x Add a delete link for an item in the journal
-- Start CSS for the Journal page
+x Start CSS for the Journal page
 - Display a transparent V as feedback to Ctrl-S
-- The tab has to refresh itself each time the Journal changes
-- Do not use a list
+@ The tab has to refresh itself each time the Journal changes
+x Do not use a list
 - When tagging a PDF paper we should extract its title
 - When tagging something with a feed we should propose to tag entire feed
+- When clicking on the browser icon we should open the Journal tab
+- Export the Journal to json
