@@ -26,6 +26,13 @@ var JournalGenerator = {
                 var id = e.currentTarget.getAttribute('id');
                 Store.delete(id);
                 JournalGenerator.deleteJournalItem(id);
+
+                // notify all opened tabs
+                chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
+                    tabs.forEach(function(tab) {
+                        chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id })
+                    });
+                })
             });
         }
     },
@@ -39,4 +46,9 @@ var JournalGenerator = {
 document.addEventListener('DOMContentLoaded', function () {
     var journal = Store.loadAll();
     JournalGenerator.showJournal(journal);
+});
+
+chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse) {
+    console.log("Msg is " + JSON.stringify(msg));
+    JournalGenerator.deleteJournalItem(msg.id);
 });

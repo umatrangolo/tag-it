@@ -7,3 +7,5 @@ x Do not use a list
 - When tagging something with a feed we should propose to tag entire feed
 x When clicking on the browser icon we should open the Journal tab
 - Export the Journal to json
+- Globally update the Journal in all the open tabs when something changes
+  Should be impl using the sendMessage() / onMessage mechanism
