@@ -1,7 +1,7 @@
 var JournalGenerator = {
 
-    showJournal: function(journal) {
-        var journalUl = document.getElementById('journal-list');
+    show: function(journal) {
+        var journalList = document.getElementById('journal-list');
 
         journal.forEach(function(j) {
             if (!j.deleted) {
@@ -15,7 +15,7 @@ var JournalGenerator = {
                     '<a href="' + j.url + '">' + j.title + '</a>' +
                     '</div>';
 
-                journalUl.appendChild(p);
+                journalList.appendChild(p);
             }
         });
 
@@ -25,19 +25,31 @@ var JournalGenerator = {
             all[i].addEventListener('click', function(e) {
                 var id = e.currentTarget.getAttribute('id');
                 Store.delete(id);
-                JournalGenerator.deleteJournalItem(id);
+                JournalGenerator.deleteItem(id);
 
                 // notify all opened tabs
                 chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
                     tabs.forEach(function(tab) {
                         chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id })
                     });
-                })
+                });
             });
         }
     },
 
-    deleteJournalItem: function(id) {
+    remove: function() {
+        var items = document.querySelectorAll('.journal-item');
+        _.each(items, function(e, i, l) {
+            e.parentNode.removeChild(e);
+        });
+    },
+
+    refresh: function(journal) {
+        JournalGenerator.remove();
+        JournalGenerator.show(journal);
+    },
+
+    deleteItem: function(id) {
         var deletedItem = document.getElementById('journal-item-' + id);
         deletedItem.parentNode.removeChild(deletedItem);
     }
@@ -45,10 +57,14 @@ var JournalGenerator = {
 
 document.addEventListener('DOMContentLoaded', function () {
     var journal = Store.loadAll();
-    JournalGenerator.showJournal(journal);
+    JournalGenerator.show(journal);
 });
 
 chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse) {
     console.log("Msg is " + JSON.stringify(msg));
-    JournalGenerator.deleteJournalItem(msg.id);
+    if (msg.action == "delete") {
+        JournalGenerator.deleteItem(msg.id);
+    } else if (msg.action == "add") {
+        JournalGenerator.refresh(Store.loadAll());
+    }
 });
