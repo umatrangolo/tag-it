@@ -19,8 +19,6 @@ chrome.commands.onCommand.addListener(function(command) {
     }
 });
 
-
-
 // on clicking the `TagIt` icon the Journal screen appears in a new tab
 chrome.browserAction.onClicked.addListener(function(tab) {
     chrome.tabs.create({'url': chrome.extension.getURL('html/main.html')}, function(tab) {

@@ -55,11 +55,6 @@ var JournalGenerator = {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var journal = Store.loadAll();
-    JournalGenerator.show(journal);
-});
-
 chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse) {
     console.log("Msg is " + JSON.stringify(msg));
     if (msg.action == "delete") {
@@ -67,4 +62,16 @@ chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse
     } else if (msg.action == "add") {
         JournalGenerator.refresh(Store.loadAll());
     }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var journal = Store.loadAll();
+    JournalGenerator.show(journal);
+
+    document.getElementById('export').addEventListener('click', function() {
+        console.log("Exporting Journal ...");
+        chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
+
+        }
+    });
 });
