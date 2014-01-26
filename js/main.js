@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('export').addEventListener('click', function() {
         console.log("Exporting Journal ...");
         chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
-
-        }
+            // TODO
+        });
     });
 });
