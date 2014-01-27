@@ -12,6 +12,10 @@ chrome.commands.onCommand.addListener(function(command) {
                 chrome.tabs.sendMessage(tab.id, { "action": "add" })
             });
         });
+    } else if (command == "export") {
+        chrome.tabs.create({ "url" : "html/export.html" }, function() {
+            console.log("Exporting Journal ...");
+        });
     } else {
         chrome.tabs.create({ "url" : "html/main.html" }, function() {
             console.log("Displaying Journal ...");
