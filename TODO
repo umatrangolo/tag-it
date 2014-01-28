@@ -6,7 +6,7 @@ x Do not use a list
 - When tagging a PDF paper we should extract its title
 - When tagging something with a feed we should propose to tag entire feed
 x When clicking on the browser icon we should open the Journal tab
-@ Export the Journal to json
+x Export the Journal to json
 - Devise a better mechanism to update the Journal tabs on each change
   Should be impl using the sendMessage() / onMessage mechanism
-- Move to chrome.storage to sync local storage between different browsers
+@ Move to chrome.storage to sync local storage between different browsers

@@ -9,4 +9,9 @@
 
 .journal-list {
     margin-top: 12px;
+    font-family: 'Inconsolata', sans-serif;
+}
+
+.journal-bar {
+    font-family: 'Inconsolata', sans-serif;
 }
