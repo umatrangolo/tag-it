@@ -10,3 +10,4 @@ x Export the Journal to json
 - Devise a better mechanism to update the Journal tabs on each change
   Should be impl using the sendMessage() / onMessage mechanism
 @ Move to chrome.storage to sync local storage between different browsers
+- Update journal screen on Storage.event
