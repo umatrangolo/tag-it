@@ -24,14 +24,15 @@ var JournalGenerator = {
         for (var i = 0; i < all.length; i++) {
             all[i].addEventListener('click', function(e) {
                 var id = e.currentTarget.getAttribute('id');
-                Store.delete(id);
-                JournalGenerator.deleteItem(id);
+                Store.delete(id, function() {
+                    JournalGenerator.deleteItem(id);
 
-                // notify all opened tabs
-                chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
-                    tabs.forEach(function(tab) {
-                        chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id })
-                    });
+                    // notify all opened tabs
+                    chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
+                        tabs.forEach(function(tab) {
+                            chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id })
+                        });
+                    });    
                 });
             });
         }
@@ -60,18 +61,19 @@ chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse
     if (msg.action == "delete") {
         JournalGenerator.deleteItem(msg.id);
     } else if (msg.action == "add") {
-        JournalGenerator.refresh(Store.loadAll());
+        Store.loadAll(JournalGenerator.refresh);
     }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    var journal = Store.loadAll();
-    JournalGenerator.show(journal);
+    Store.loadAll(function(journal) {
+        JournalGenerator.show(journal);
 
-    document.getElementById('export').addEventListener('click', function() {
-        console.log("Exporting Journal ...");
-        chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
-            // TODO
+        document.getElementById('export').addEventListener('click', function() {
+            console.log("Exporting Journal ...");
+            chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
+             // TODO
+            });
         });
     });
 });
