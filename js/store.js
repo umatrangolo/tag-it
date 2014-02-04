@@ -2,11 +2,10 @@ var Store = {
     save: function(title, url, continuation) {
         chrome.storage.sync.get("tagit", function(tagit) {
             if (_.isEmpty(tagit)) {
-                var newJournal = append(title, url, []);
+                var newJournal = appendToJournal(title, url, []);
+                var tagit = { "journal": newJournal };
 
-                chrome.storage.sync.set({
-                    "tagit" : { "journal": newJournal }
-                }, function() {
+                chrome.storage.sync.set({ "tagit" : tagit }, function() {
                     console.log("TagIt storage area has been initialized.");
                     chrome.storage.sync.get("tagit", continuation);
                 });
@@ -20,7 +19,7 @@ var Store = {
             }
         });
 
-        function append(title, url, journal) {
+        function appendToJournal(title, url, journal) {
             var item = {
                 "id": Date.now(),
                 "url": url,
@@ -49,8 +48,8 @@ var Store = {
     },
 
     loadAll: function(continuation) {
-        chrome.storage.sync.get("tagit", function(tagit) {
-            continuation(tagit.tagit.journal);  // TODO wtf!?!
+        chrome.storage.sync.get("tagit", function(content) {
+            continuation(content.tagit);  
         });
     }
 };

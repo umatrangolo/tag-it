@@ -45,9 +45,9 @@ var JournalGenerator = {
         });
     },
 
-    refresh: function(journal) {
+    refresh: function(tagit) {
         JournalGenerator.remove();
-        JournalGenerator.show(journal);
+        JournalGenerator.show(tagit.journal);
     },
 
     deleteItem: function(id) {
@@ -65,14 +65,14 @@ chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    Store.loadAll(function(journal) {
-        JournalGenerator.show(journal);
+document.addEventListener('DOMContentLoaded', function() {
+    Store.loadAll(function(tagit) {
+        JournalGenerator.show(tagit.journal);
 
         document.getElementById('export').addEventListener('click', function() {
             console.log("Exporting Journal ...");
             chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
-             // TODO
+                // TODO
             });
         });
     });

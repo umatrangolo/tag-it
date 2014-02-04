@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var journal = Store.loadAll();
-    var journalNotDeleted = _.filter(journal, function(e) {
+    var tagit = Store.loadAll();
+    var journalNotDeleted = _.filter(tagit.journal, function(e) {
         return e.deleted != true;
     });
 
