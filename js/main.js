@@ -45,14 +45,16 @@ var JournalGenerator = {
         });
     },
 
-    refresh: function(tagit) {
+    refresh: function(journal) {
         JournalGenerator.remove();
-        JournalGenerator.show(tagit.journal);
+        JournalGenerator.show(journal);
     },
 
     deleteItem: function(id) {
         var deletedItem = document.getElementById('journal-item-' + id);
-        deletedItem.parentNode.removeChild(deletedItem);
+        if (deletedItem != null) {
+            deletedItem.parentNode.removeChild(deletedItem);
+        }
     }
 }
 
@@ -66,8 +68,8 @@ chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    Store.loadAll(function(tagit) {
-        JournalGenerator.show(tagit.journal);
+    Store.loadAll(function(journal) {
+        JournalGenerator.show(journal);
 
         document.getElementById('export').addEventListener('click', function() {
             console.log("Exporting Journal ...");

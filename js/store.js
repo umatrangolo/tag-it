@@ -1,7 +1,7 @@
 var Store = {
     save: function(title, url, continuation) {
-        chrome.storage.sync.get("tagit", function(tagit) {
-            if (_.isEmpty(tagit)) {
+        chrome.storage.sync.get("tagit", function(content) {
+            if (_.isEmpty(content)) {
                 var newJournal = appendToJournal(title, url, []);
                 var tagit = { "journal": newJournal };
 
@@ -10,9 +10,10 @@ var Store = {
                     chrome.storage.sync.get("tagit", continuation);
                 });
             } else {
-                var newJournal = append(title, url, tagit.tagit.journal); // TODO wtf!?!
+                var newJournal = appendToJournal(title, url, content.tagit.journal); 
+                var tagit = { "journal": newJournal };
 
-                chrome.storage.sync.set({ "tagit" : { "journal" : newJournal } }, function() {
+                chrome.storage.sync.set({ "tagit" : tagit }, function() {
                     console.log("TagIt Journal has been updated for url " + url);
                     chrome.storage.sync.get("tagit", continuation);
                 });
@@ -33,12 +34,16 @@ var Store = {
     },
 
     delete: function(id, continuation) {
-        chrome.storage.sync.get("tagit", function(tagit) {
-            _.each(tagit.tagit.journal, function(e) { // TODO wtf !?!
+        chrome.storage.sync.get("tagit", function(content) {
+            var journal = content.tagit.journal;
+            var updatedJournal = _.map(journal, function(e) { 
                 if (e.id == id) {
                     e.deleted = true;
                 }
+                
+                return e;
             });
+            var tagit = { "journal" : updatedJournal };
 
             chrome.storage.sync.set({ "tagit": tagit }, function() {
                 console.log("Journal item with id: " + id + " has been deleted");
@@ -47,9 +52,10 @@ var Store = {
         });
     },
 
+    // returns the journal
     loadAll: function(continuation) {
         chrome.storage.sync.get("tagit", function(content) {
-            continuation(content.tagit);  
+            _.isEmpty(content) ? [] : continuation(content.tagit.journal) 
         });
     }
 };
