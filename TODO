@@ -9,5 +9,6 @@ x When clicking on the browser icon we should open the Journal tab
 x Export the Journal to json
 - Devise a better mechanism to update the Journal tabs on each change
   Should be impl using the sendMessage() / onMessage mechanism
-@ Move to chrome.storage to sync local storage between different browsers
-- Update journal screen on Storage.event
+x Move to chrome.storage to sync local storage between different browsers
+/ Update journal screen on Storage.event. Better to use the chrome.tabs events!
+
