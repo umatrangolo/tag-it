@@ -1,8 +1,8 @@
 var Store = {
-    save: function(title, url, continuation) {
+    save: function(title, url, tags, continuation) {
         chrome.storage.sync.get("tagit", function(content) {
             if (_.isEmpty(content)) {
-                var newJournal = appendToJournal(title, url, []);
+                var newJournal = appendToJournal(title, url, tags, []);
                 var tagit = { "journal": newJournal };
 
                 chrome.storage.sync.set({ "tagit" : tagit }, function() {
@@ -10,7 +10,7 @@ var Store = {
                     chrome.storage.sync.get("tagit", continuation);
                 });
             } else {
-                var newJournal = appendToJournal(title, url, content.tagit.journal); 
+                var newJournal = appendToJournal(title, url, tags, content.tagit.journal);
                 var tagit = { "journal": newJournal };
 
                 chrome.storage.sync.set({ "tagit" : tagit }, function() {
@@ -20,27 +20,28 @@ var Store = {
             }
         });
 
-        function appendToJournal(title, url, journal) {
+        function appendToJournal(title, url, tags, journal) {
             var item = {
                 "id": Date.now(),
                 "url": url,
                 "title": title,
+                "tags": tags,
                 "deleted": false
             };
 
             journal.unshift(item);
-            return journal;    
+            return journal;
         }
     },
 
     delete: function(id, continuation) {
         chrome.storage.sync.get("tagit", function(content) {
             var journal = content.tagit.journal;
-            var updatedJournal = _.map(journal, function(e) { 
+            var updatedJournal = _.map(journal, function(e) {
                 if (e.id == id) {
                     e.deleted = true;
                 }
-                
+
                 return e;
             });
             var tagit = { "journal" : updatedJournal };
@@ -55,7 +56,7 @@ var Store = {
     // returns the journal
     loadAll: function(continuation) {
         chrome.storage.sync.get("tagit", function(content) {
-            _.isEmpty(content) ? [] : continuation(content.tagit.journal) 
+            _.isEmpty(content) ? [] : continuation(content.tagit.journal)
         });
     }
 };
