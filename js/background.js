@@ -1,18 +1,14 @@
 chrome.commands.onCommand.addListener(function(command) {
     if (command == "save") {
-        // TODO we assume that the current tab is the first one from the query
-        // TODO extract the minimal url (e.g: https://www.mywickr.com instead of https://www.mywickr.com/en/index.php)
-        chrome.tabs.query({ "active": true }, function(tab) {
-            Store.save(tab[0].title, tab[0].url, [], function(tagit) {
-                // notify all opened tabs
-                console.log("Current tab saved: updated journal is " + JSON.stringify(tagit));
-                chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
-                    tabs.forEach(function(tab) {
-                        chrome.tabs.sendMessage(tab.id, { "action": "add" })
-                    });
-                });
-            });
-        });
+        // injecting all needed dependencies
+        chrome.tabs.executeScript(null, { file: "js/underscore.js" });
+        chrome.tabs.executeScript(null, { file: "js/jquery-2.1.0.min.js" });
+        chrome.tabs.executeScript(null, { file: "js/vex.combined.min.js" });
+        chrome.tabs.executeScript(null, { file: "js/store.js" });
+        chrome.tabs.insertCSS(null, { file: "css/vex.css" });
+        chrome.tabs.insertCSS(null, { file: "css/vex-theme-flat-attack.css" });
+
+        chrome.tabs.executeScript(null, { file: "js/tagit_ui.js" });
     } else if (command == "export") {
         chrome.tabs.create({ "url" : "html/export.html" }, function() {
             console.log("Exporting Journal ...");
