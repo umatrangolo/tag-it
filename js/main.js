@@ -32,7 +32,7 @@ var JournalGenerator = {
                         tabs.forEach(function(tab) {
                             chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id })
                         });
-                    });    
+                    });
                 });
             });
         }
