@@ -8,8 +8,8 @@
     "background": {
         "scripts": [
             "js/underscore.js",
-            "js/background.js",
-            "js/store.js"
+            "js/store.js",
+            "js/background.js"
         ]
     },
     "browser_action": {

@@ -34,13 +34,8 @@ function main() {
     console.log("url: " + url + ", title: " + title);
 
     TagItUI.showTagsDialog(url, title, function(url, title, tags) {
-        Store.save(title, url, tags, function(tagit) {
-            // notify all opened tabs
-            chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
-                tabs.forEach(function(tab) {
-                    chrome.tabs.sendMessage(tab.id, { "action": "add" })
-                });
-            });
+        chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": tags }, function(response) {
+            console.log("'Add' msg sent to extension");
         });
     });
 }

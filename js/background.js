@@ -4,7 +4,6 @@ chrome.commands.onCommand.addListener(function(command) {
         chrome.tabs.executeScript(null, { file: "js/underscore.js" });
         chrome.tabs.executeScript(null, { file: "js/jquery-2.1.0.min.js" });
         chrome.tabs.executeScript(null, { file: "js/vex.combined.min.js" });
-        chrome.tabs.executeScript(null, { file: "js/store.js" });
         chrome.tabs.insertCSS(null, { file: "css/vex.css" });
         chrome.tabs.insertCSS(null, { file: "css/vex-theme-flat-attack.css" });
 
@@ -25,4 +24,18 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     chrome.tabs.create({'url': chrome.extension.getURL('html/main.html')}, function(tab) {
         // TODO
     });
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    if (request.msg == "add") {
+        console.log("'Add' message received: " + JSON.stringify(request));
+        Store.save(request.title, request.url, request.tags, function(tagit) {
+            chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
+                tabs.forEach(function(tab) {
+                    chrome.tabs.sendMessage(tab.id, { "action": "add" })
+                });
+            });
+        });
+    }
 });
