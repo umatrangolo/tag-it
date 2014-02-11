@@ -24,6 +24,13 @@ var TagItUI = {
 
     extractUrl: function() {
         return document.location.href;
+    },
+
+    sanitizeTags: function(tags) {
+        return _.filter(tags, function(t) {
+            t.trim().length > 0
+            // TODO Get rid of html while sanitizing the tags
+        });
     }
 };
 
@@ -34,7 +41,8 @@ function main() {
     console.log("url: " + url + ", title: " + title);
 
     TagItUI.showTagsDialog(url, title, function(url, title, tags) {
-        chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": tags }, function(response) {
+        var sanitizedTags = TagItUI.sanitizeTags(tags);
+        chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": sanitizedTags }, function(response) {
             console.log("'Add' msg sent to extension");
         });
     });
