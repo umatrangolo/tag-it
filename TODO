@@ -13,3 +13,5 @@ x Move to chrome.storage to sync local storage between different browsers
 - Tagging PDF documents misses a title
 - Automatically add tags on different contents: e.g. if I tag a PDF then add #pdf
   to the journal item
+- Lots of web pages have a div of class='tags': use that to suggest tags for the
+  current page
