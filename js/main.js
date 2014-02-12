@@ -12,6 +12,7 @@ var JournalGenerator = {
                 p.innerHTML =
                     '<div id="journal-item-' + j.id + '">' +
                     '<button class="delete-journal-item" id="' + j.id + '" type="button">x</button>' +
+                    '<span class="tags">[' + j.tags +']</span>' +
                     '<a href="' + j.url + '">' + j.title + '</a>' +
                     '</div>';
 
