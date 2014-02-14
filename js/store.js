@@ -7,6 +7,7 @@ var Store = {
 
                 chrome.storage.sync.set({ "tagit" : tagit }, function() {
                     console.log("TagIt storage area has been initialized.");
+                    console.log(chrome.runtime.lastError);
                     chrome.storage.sync.get("tagit", continuation);
                 });
             } else {
@@ -15,6 +16,7 @@ var Store = {
 
                 chrome.storage.sync.set({ "tagit" : tagit }, function() {
                     console.log("TagIt Journal has been updated for url " + url);
+                    console.log(chrome.runtime.lastError);
                     chrome.storage.sync.get("tagit", continuation);
                 });
             }

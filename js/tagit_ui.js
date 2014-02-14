@@ -28,8 +28,7 @@ var TagItUI = {
 
     sanitizeTags: function(tags) {
         return _.filter(tags, function(t) {
-            t.trim().length > 0
-            // TODO Get rid of html while sanitizing the tags
+            return t.trim().length > 0; // TODO Get rid of html while sanitizing the tags
         });
     }
 };
