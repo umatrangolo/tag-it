@@ -17,17 +17,11 @@
     },
     "commands": {
         "journal": { // open a new tab with all the saves urls
-            "suggested_key": {
-                "default": "Ctrl+J",
-                "mac": "MacCtrl+J"
-            },
+            "suggested_key": { "default": "Alt+Shift+J" },
             "description": "Show the journal in a new tab"
         },
-        "save": {
-            "suggested_key": { // save current url in the journal
-                "default": "Ctrl+S",
-                "mac": "MacCtrl+S"
-            },
+        "save": {  // save current url in the journal
+            "suggested_key": { "default": "Alt+Shift+S" },
             "description": "Send a 'save' event to the extension"
         }
     }
