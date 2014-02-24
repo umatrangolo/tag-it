@@ -16,7 +16,14 @@
     font-family: 'Inconsolata', sans-serif;
 }
 
-.tags {
-	font-family: 'Inconsolata', sans-serif;
-	font-size: 11px;
+.tag {
+    font-family: 'Inconsolata', sans-serif;
+    font-size: small;
+    background: #F3C5D4;
+    padding: 1px 3px 0 3px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 5px;
+    border: 1px solid #F3C5D4;
 }
