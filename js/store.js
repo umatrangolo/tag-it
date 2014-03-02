@@ -1,3 +1,32 @@
+var IndexedStore = {
+    DB: {}, // main tagit db
+
+    init: function(continuation) {
+        var request = indexedDB.open("tagit", 1);
+
+        request.onerror = function(event) {
+            console.log("Error while opening indexed DB!\n" + JSON.stringify(event));
+        };
+
+        request.onupgradeneeded = function(event) {
+            DB = event.target.result; 
+
+            DB.onerror = function(event) {
+                console.log("Error with the IndexedDB:\n" + JSON.stringify(event));
+            }
+
+            // create journal object store
+            var journalObjStore = DB.createObjectStore("tagit.journal", { keyPath: "id" });
+            journalObjStore.createIndex("id", "id", { unique: true });
+
+            journalObjStore.transaction.oncomplete = function(event) {
+                console.log("Creation of object stores complete");
+                continuation();
+            }
+        }
+    }
+};
+
 var Store = {
     save: function(title, url, tags, continuation) {
         chrome.storage.sync.get("tagit", function(content) {
