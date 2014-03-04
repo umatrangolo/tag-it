@@ -9,11 +9,11 @@ var IndexedStore = {
         };
 
         request.onupgradeneeded = function(event) {
-            DB = event.target.result; 
+            IndexedStore.DB = event.target.result;
 
-            DB.onerror = function(event) {
+            IndexedStore.DB.onerror = function(event) {
                 console.log("Error with the IndexedDB:\n" + JSON.stringify(event));
-            }
+            };
 
             // create journal object store
             var journalObjStore = DB.createObjectStore("tagit.journal", { keyPath: "id" });
@@ -22,7 +22,49 @@ var IndexedStore = {
             journalObjStore.transaction.oncomplete = function(event) {
                 console.log("Creation of object stores complete");
                 continuation();
+            };
+        };
+    },
+
+    save: function(title, url, tags, continuation) {
+        var tx = IndexedStore.DB.transaction(["tagit.journal"], "readwrite");
+
+        tx.oncomplete = function(event) { continuation(); };
+        tx.onerror = function(event) {
+            console.log("Error saving title: " + title + ", url: "  + url + ", tags: " + tags + "\nError: " + JSON.stringify(event));
+        };
+
+        var objStore = tx.objectstore("tagit.journal");
+        var request = objStore.get("journal");
+        request.onsuccess = function(event) {
+            var content = request.result;
+            
+            if (_.isEmpty(content)) {
+                var newJournal = appendToJournal(title, url, tags, []);
+                var journal = { "journal": newJournal };
+
+                chrome.storage.sync.set({ "tagit" : tagit }, function() {
+                    console.log("TagIt storage area has been initialized.");
+                    console.log(chrome.runtime.lastError);
+                    chrome.storage.sync.get("tagit", continuation);
+                });
+
+            } else {
+
             }
+        };
+
+        function appendToJournal(title, url, tags, journal) {
+            var item = {
+                "id": Date.now(),
+                "url": url,
+                "title": title,
+                "tags": tags,
+                "deleted": false
+            };
+
+            journal.unshift(item);
+            return journal;
         }
     }
 };
