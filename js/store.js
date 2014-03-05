@@ -1,135 +1,75 @@
-var IndexedStore = {
-    DB: {}, // main tagit db
-
-    init: function(continuation) {
-        var request = indexedDB.open("tagit", 1);
-
-        request.onerror = function(event) {
-            console.log("Error while opening indexed DB!\n" + JSON.stringify(event));
-        };
-
-        request.onupgradeneeded = function(event) {
-            IndexedStore.DB = event.target.result;
-
-            IndexedStore.DB.onerror = function(event) {
-                console.log("Error with the IndexedDB:\n" + JSON.stringify(event));
-            };
-
-            // create journal object store
-            var journalObjStore = DB.createObjectStore("tagit.journal", { keyPath: "id" });
-            journalObjStore.createIndex("id", "id", { unique: true });
-
-            journalObjStore.transaction.oncomplete = function(event) {
-                console.log("Creation of object stores complete");
-                continuation();
-            };
-        };
-    },
-
-    save: function(title, url, tags, continuation) {
-        var tx = IndexedStore.DB.transaction(["tagit.journal"], "readwrite");
-
-        tx.oncomplete = function(event) { continuation(); };
-        tx.onerror = function(event) {
-            console.log("Error saving title: " + title + ", url: "  + url + ", tags: " + tags + "\nError: " + JSON.stringify(event));
-        };
-
-        var objStore = tx.objectstore("tagit.journal");
-        var request = objStore.get("journal");
-        request.onsuccess = function(event) {
-            var content = request.result;
-            
-            if (_.isEmpty(content)) {
-                var newJournal = appendToJournal(title, url, tags, []);
-                var journal = { "journal": newJournal };
-
-                chrome.storage.sync.set({ "tagit" : tagit }, function() {
-                    console.log("TagIt storage area has been initialized.");
-                    console.log(chrome.runtime.lastError);
-                    chrome.storage.sync.get("tagit", continuation);
-                });
-
-            } else {
-
-            }
-        };
-
-        function appendToJournal(title, url, tags, journal) {
-            var item = {
-                "id": Date.now(),
-                "url": url,
-                "title": title,
-                "tags": tags,
-                "deleted": false
-            };
-
-            journal.unshift(item);
-            return journal;
-        }
-    }
-};
-
 var Store = {
-    save: function(title, url, tags, continuation) {
-        chrome.storage.sync.get("tagit", function(content) {
-            if (_.isEmpty(content)) {
-                var newJournal = appendToJournal(title, url, tags, []);
-                var tagit = { "journal": newJournal };
+  DB: {}, // main tagit db
 
-                chrome.storage.sync.set({ "tagit" : tagit }, function() {
-                    console.log("TagIt storage area has been initialized.");
-                    console.log(chrome.runtime.lastError);
-                    chrome.storage.sync.get("tagit", continuation);
-                });
-            } else {
-                var newJournal = appendToJournal(title, url, tags, content.tagit.journal);
-                var tagit = { "journal": newJournal };
+  JOURNAL_STORE: "journal.tagit",
 
-                chrome.storage.sync.set({ "tagit" : tagit }, function() {
-                    console.log("TagIt Journal has been updated for url " + url);
-                    console.log(chrome.runtime.lastError);
-                    chrome.storage.sync.get("tagit", continuation);
-                });
-            }
-        });
+  // inits the DB
+  init: function(continuation) {
+    var request = indexedDB.open("tagit", 1);
 
-        function appendToJournal(title, url, tags, journal) {
-            var item = {
-                "id": Date.now(),
-                "url": url,
-                "title": title,
-                "tags": tags,
-                "deleted": false
-            };
+    request.onerror = function(event) {
+      console.log("Error while opening indexed DB!\n" + JSON.stringify(event));
+    };
 
-            journal.unshift(item);
-            return journal;
+    request.onupgradeneeded = function(event) {
+      Store.DB = event.target.result;
+
+      // root error handler
+      Store.DB.onerror = function(event) {
+        console.log("Database error (" + event.target.errorCode + "):\n" + JSON.stringify(event));
+      };
+
+      // create journal object store and its index
+      var journalObjStore = Store.DB.createObjectStore(Store.JOURNAL_STORE, { keyPath: "id" });
+      journalObjStore.createIndex("id", "id", { unique: true });
+
+      journalObjStore.transaction.oncomplete = function(event) { // here we are sure the store is in place
+        console.log("Creation of object store complete");
+      };
+    };
+  },
+
+  // returns all items in the journal
+  loadAll: function(continuation) {
+    var journal = [];
+
+    Store.DB.transaction([ Store.JOURNAL_STORE ], "read").objectStore(Store.JOURNAL_STORE).openCursor()
+      .onsuccess = function(event) {
+        var cursor = event.target.result;
+
+        if (cursor) {
+          journal.push(cursor.value);
+          cursor.continue();
+        } else {
+          continuation(journal);
         }
-    },
+      };
+  },
 
-    delete: function(id, continuation) {
-        chrome.storage.sync.get("tagit", function(content) {
-            var journal = content.tagit.journal;
-            var updatedJournal = _.map(journal, function(e) {
-                if (e.id == id) {
-                    e.deleted = true;
-                }
+  // store a new journal item
+  save: function(title, url, tags, continuation) {
+    var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "deleted": false };
 
-                return e;
-            });
-            var tagit = { "journal" : updatedJournal };
+    Store.DB.transaction([ Store.JOURNAL_STORE ], "write").objectStore(Store.JOURNAL_STORE).add(item)
+      .onsuccess = function(event) {
+        console.log("Journal has been updated for url " + url);
+        continuation();
+    };
+  },
 
-            chrome.storage.sync.set({ "tagit": tagit }, function() {
-                console.log("Journal item with id: " + id + " has been deleted");
-                chrome.storage.sync.get("tagit", continuation);
-            });
-        });
-    },
+  // soft delete an item from the journal
+  delete: function(id, continuation) {
+    var tx = Store.DB.transaction([ Store.JOURNAL_STORE ], "");
+    var journalStore = tx.objectStore(Store.JOURNAL_STORE);
 
-    // returns the journal
-    loadAll: function(continuation) {
-        chrome.storage.sync.get("tagit", function(content) {
-            _.isEmpty(content) ? [] : continuation(content.tagit.journal)
-        });
-    }
+    journalStore.get(id).onsuccess = function(event) {
+      var item = event.target.result;
+
+      item.deleted = true;
+      journalStore.put(item).onsuccess = function(event) {
+        console.log("Journal item with id: " + id + " has been deleted");
+        continuation();
+      };
+    };
+  }
 };
