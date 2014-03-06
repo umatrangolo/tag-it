@@ -1,10 +1,9 @@
 var Store = {
-    DB: {}, // main tagit db
-
     JOURNAL_STORE: "journal.tagit",
 
     // inits the DB
     init: function(continuation) {
+        var db = undefined;
         var request = indexedDB.open("tagit", 1);
 
         request.onerror = function(event) {
@@ -12,28 +11,29 @@ var Store = {
         };
 
         request.onupgradeneeded = function(event) {
-            Store.DB = event.target.result;
+            db = event.target.result;
 
             // root error handler
-            Store.DB.onerror = function(event) {
+            db.onerror = function(event) {
                 console.log("Database error (" + event.target.errorCode + "):\n" + JSON.stringify(event));
             };
 
             // create journal object store and its index
-            var journalObjStore = Store.DB.createObjectStore(Store.JOURNAL_STORE, { keyPath: "id" });
+            var journalObjStore = db.createObjectStore(Store.JOURNAL_STORE, { keyPath: "id" });
             journalObjStore.createIndex("id", "id", { unique: true });
 
             journalObjStore.transaction.oncomplete = function(event) { // here we are sure the store is in place
                 console.log("Creation of object store complete");
+                continuation(db);
             };
         };
     },
 
     // returns all items in the journal
-    loadAll: function(continuation) {
+    loadAll: function(db, continuation) {
         var journal = [];
 
-        Store.DB.transaction([ Store.JOURNAL_STORE ], "read").objectStore(Store.JOURNAL_STORE).openCursor()
+        db.transaction([ Store.JOURNAL_STORE ], "read").objectStore(Store.JOURNAL_STORE).openCursor()
             .onsuccess = function(event) {
                 var cursor = event.target.result;
 
@@ -47,10 +47,10 @@ var Store = {
     },
 
     // store a new journal item
-    save: function(title, url, tags, continuation) {
+    save: function(db, title, url, tags, continuation) {
         var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "deleted": false };
 
-        Store.DB.transaction([ Store.JOURNAL_STORE ], "write").objectStore(Store.JOURNAL_STORE).add(item)
+        db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item)
             .onsuccess = function(event) {
                 console.log("Journal has been updated for url " + url);
                 continuation();
@@ -58,8 +58,8 @@ var Store = {
     },
 
     // soft delete an item from the journal
-    delete: function(id, continuation) {
-        var tx = Store.DB.transaction([ Store.JOURNAL_STORE ], "");
+    delete: function(db, id, continuation) {
+        var tx = db.transaction([ Store.JOURNAL_STORE ], "");
         var journalStore = tx.objectStore(Store.JOURNAL_STORE);
 
         journalStore.get(id).onsuccess = function(event) {

@@ -33,10 +33,10 @@ function setup() {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
         if (request.msg == "add") {
             console.log("'Add' message received: " + JSON.stringify(request));
-            Store.save(request.title, request.url, request.tags, function(tagit) {
+            Store.save(DB, request.title, request.url, request.tags, function(tagit) {
                 chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
                     tabs.forEach(function(tab) {
-                        chrome.tabs.sendMessage(tab.id, { "action": "add" })
+                        chrome.tabs.sendMessage(tab.id, { "action": "add" });
                     });
                 });
             });
@@ -44,4 +44,9 @@ function setup() {
     });
 };
 
-IndexedStore.init(setup);
+var DB = {};
+
+Store.init(function(db) {
+    DB = db;
+    setup();
+});

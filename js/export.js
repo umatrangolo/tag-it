@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    Store.loadAll(function(journal) {
+    Store.loadAll(DB, function(journal) {
         var journalNotDeleted = _.filter(journal, function(e) {
             return e.deleted != true;
         });
