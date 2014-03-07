@@ -1,6 +1,6 @@
 var JournalGenerator = {
 
-    show: function(journal) {
+    show: function(db, journal) {
         var journalList = document.getElementById('journal-list');
 
         journal.forEach(function(j) {
@@ -32,7 +32,7 @@ var JournalGenerator = {
             all[i].addEventListener('click', function(e) {
 	        var id = e.currentTarget.getAttribute('id');
 
-	        Store.delete(DB, id, function() {
+	        Store.delete(db, id, function() {
 	            JournalGenerator.deleteItem(id);
 
 	            // notify all opened tabs
@@ -70,7 +70,7 @@ var JournalGenerator = {
             deletedItem.parentNode.removeChild(deletedItem);
         }
     }
-}
+};
 
 chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse) {
     console.log("Msg is " + JSON.stringify(msg));
@@ -82,13 +82,15 @@ chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    Store.loadAll(DB, function(journal) {
-        JournalGenerator.show(journal);
+    Store.open(function(db) {
+        Store.loadAll(db, function(journal) {
+            JournalGenerator.show(db, journal);
 
-        document.getElementById('export').addEventListener('click', function() {
-            console.log("Exporting Journal ...");
-            chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
-	        // TODO
+            document.getElementById('export').addEventListener('click', function() {
+                console.log("Exporting Journal ...");
+                chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
+	            // TODO
+                });
             });
         });
     });

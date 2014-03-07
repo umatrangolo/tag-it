@@ -1,17 +1,29 @@
 var Store = {
     JOURNAL_STORE: "journal.tagit",
+    DB_VERSION: 1,
 
-    // inits the DB
-    init: function(continuation) {
-        var db = undefined;
-        var request = indexedDB.open("tagit", 1);
+    // Opens/inits the DB
+    open: function(continuation) {
+        var request = indexedDB.open("tagit", Store.DB_VERSION);
 
         request.onerror = function(event) {
-            console.log("Error while opening indexed DB!\n" + JSON.stringify(event));
+            console.log("Error while opening/creating TagIt DB!\n" + JSON.stringify(event));
+        };
+
+        request.onsuccess = function(event) {
+            var db = event.target.result;
+
+            // root error handler
+            db.onerror = function(event) {
+                console.log("Database error (" + event.target.errorCode + "):\n" + JSON.stringify(event));
+            };
+
+            console.log("TagIt DB successfully opened");
+            continuation(db);
         };
 
         request.onupgradeneeded = function(event) {
-            db = event.target.result;
+            var db = event.target.result;
 
             // root error handler
             db.onerror = function(event) {
@@ -23,7 +35,7 @@ var Store = {
             journalObjStore.createIndex("id", "id", { unique: true });
 
             journalObjStore.transaction.oncomplete = function(event) { // here we are sure the store is in place
-                console.log("Creation of object store complete");
+                console.log("TagIt DB successfully created");
                 continuation(db);
             };
         };
