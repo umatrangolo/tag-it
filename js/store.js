@@ -45,17 +45,20 @@ var Store = {
     loadAll: function(db, continuation) {
         var journal = [];
 
-        db.transaction([ Store.JOURNAL_STORE ], "read").objectStore(Store.JOURNAL_STORE).openCursor()
-            .onsuccess = function(event) {
-                var cursor = event.target.result;
+        var tx = db.transaction([ Store.JOURNAL_STORE ]);
+        var objStore = tx.objectStore(Store.JOURNAL_STORE);
+        var request = objStore.openCursor();
 
-                if (cursor) {
-                    journal.push(cursor.value);
-                    cursor.continue();
-                } else {
-                    continuation(journal);
-                }
-            };
+        request.onsuccess = function(event) {
+            var cursor = event.target.result;
+
+            if (cursor) {
+                journal.push(cursor.value);
+                cursor.continue();
+            } else {
+                continuation(journal);
+            }
+        };
     },
 
     // store a new journal item
