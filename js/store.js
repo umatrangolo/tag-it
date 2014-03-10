@@ -65,20 +65,21 @@ var Store = {
     save: function(db, title, url, tags, continuation) {
         var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "deleted": false };
 
-        db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item)
-            .onsuccess = function(event) {
-                console.log("Journal has been updated for url " + url);
-                continuation();
-            };
+        db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
+            console.log("Journal has been updated for url " + url);
+            continuation();
+        };
     },
 
     // soft delete an item from the journal
     delete: function(db, id, continuation) {
-        var tx = db.transaction([ Store.JOURNAL_STORE ], "");
+        var tx = db.transaction([ Store.JOURNAL_STORE ], "readwrite");
         var journalStore = tx.objectStore(Store.JOURNAL_STORE);
+        var request = journalStore.get(parseInt(id));
 
-        journalStore.get(id).onsuccess = function(event) {
-            var item = event.target.result;
+        request.onerror = function(event) { console.log("Error loading journal item with id:" + id); }
+        request.onsuccess = function(event) {
+            var item = request.result;
 
             item.deleted = true;
             journalStore.put(item).onsuccess = function(event) {
