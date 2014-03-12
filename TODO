@@ -15,5 +15,5 @@ x Move to chrome.storage to sync local storage between different browsers
   to the journal item
 - Lots of web pages have a div of class='tags': use that to suggest tags for the
   current page
-- Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderately
+x Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderately
   sized data. We will lose sync but we simply can't use chrome.storage.*.
