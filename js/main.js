@@ -5,23 +5,23 @@ var JournalGenerator = {
 
         journal.forEach(function(j) {
             if (!j.deleted) {
-	        var p = document.createElement('p');
-	        p.classList.add("journal-item");
+                var p = document.createElement('p');
+                p.classList.add("journal-item");
 
-	        // TODO there should be a better way! --> React.js
-	        var html =
-	                '<div id="journal-item-' + j.id + '">' +
-	                '<button class="delete-journal-item" id="' + j.id + '" type="button">x</button>' +
-	                '<a href="' + j.url + '">' + j.title + '</a>';
+                // TODO there should be a better way! --> React.js
+                var html =
+                        '<div id="journal-item-' + j.id + '">' +
+                        '<button class="delete-journal-item" id="' + j.id + '" type="button">x</button>' +
+                        '<a href="' + j.url + '">' + j.title + '</a>';
 
-	        _.forEach(emitTags(j.tags), function(tag) {
-	            html += tag;
-	        });
+                _.forEach(emitTags(j.tags), function(tag) {
+                    html += tag;
+                });
 
-	        html +='</div>';
+                html +='</div>';
 
-	        p.innerHTML = html;
-	        journalList.appendChild(p);
+                p.innerHTML = html;
+                journalList.appendChild(p);
             }
         });
 
@@ -30,25 +30,25 @@ var JournalGenerator = {
 
         for (var i = 0; i < all.length; i++) {
             all[i].addEventListener('click', function(e) {
-	        var id = e.currentTarget.getAttribute('id');
+                var id = e.currentTarget.getAttribute('id');
 
-	        Store.delete(db, id, function() {
-	            JournalGenerator.deleteItem(id);
+                Store.delete(db, id, function() {
+                    JournalGenerator.deleteItem(id);
 
-	            // notify all opened tabs
-	            chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
-	                tabs.forEach(function(tab) {
-	                    chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id });
-	                });
-	            });
-	        });
+                    // notify all opened tabs
+                    chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
+                        tabs.forEach(function(tab) {
+                            chrome.tabs.sendMessage(tab.id, { "action": "delete", "id" : id });
+                        });
+                    });
+                });
             });
         }
 
         function emitTags(tags) {
             return _.map(tags, function(tag) {
-	        return '<span class="tag">' + tag + '</span>';
-	    });
+                return '<span class="tag">' + tag + '</span>';
+            });
         }
     },
 
@@ -61,7 +61,9 @@ var JournalGenerator = {
 
     refresh: function(journal) {
         JournalGenerator.remove();
-        JournalGenerator.show(journal);
+        Store.open(function(db) {
+            JournalGenerator.show(db, journal);
+        });
     },
 
     deleteItem: function(id) {
@@ -74,10 +76,13 @@ var JournalGenerator = {
 
 chrome.runtime.onMessage.addListener(function callback(msg, sender, sendResponse) {
     console.log("Msg is " + JSON.stringify(msg));
+
     if (msg.action == "delete") {
         JournalGenerator.deleteItem(msg.id);
     } else if (msg.action == "add") {
-        Store.loadAll(DB, JournalGenerator.refresh);
+        Store.open(function(db) {
+            Store.loadAll(db, JournalGenerator.refresh);
+        });
     }
 });
 
@@ -89,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('export').addEventListener('click', function() {
                 console.log("Exporting Journal ...");
                 chrome.tabs.create({'url': chrome.extension.getURL('html/export.html')}, function(tab) {
-	            // TODO
+                    // TODO
                 });
             });
         });

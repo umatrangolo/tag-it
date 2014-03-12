@@ -31,6 +31,7 @@ function setup(db) {
 
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+
         if (request.msg == "add") {
             console.log("'Add' message received: " + JSON.stringify(request));
             Store.save(db, request.title, request.url, request.tags, function(tagit) {
