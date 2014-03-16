@@ -3,6 +3,8 @@
     margin-bottom: 2px;
 }
 
+.journal-item a { text-decoration: none; }
+
 .delete-journal-item {
     margin-right: 6px;
 }
