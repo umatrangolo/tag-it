@@ -20,3 +20,6 @@ x Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderat
 - Search across all the saved journal items. The search has to be performed both
   on the title, on the date and on all its tags.
 - Fuzzy searching (ala Sublime Text)
+- Given that now we can't use chrome.sync to share items across all the browsers
+  we need a svc somewhere that acts like a store for everyone items. This then will
+  enable some ML and social.
