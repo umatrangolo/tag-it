@@ -1,5 +1,15 @@
 function setup(db) {
-    console.log("Starting TagIt");
+    console.log("Starting TagIt ...");
+
+    var index = Search.open();
+
+    // create the index
+    Store.loadAll(db, function(journal) {
+        console.log("Building index ...");
+        _.each(journal, function(element, index, list) {
+            Search.add(index, element);
+        });
+    });
 
     chrome.commands.onCommand.addListener(function(command) {
         if (command == "save") {

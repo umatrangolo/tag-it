@@ -9,8 +9,9 @@
         "scripts": [
             "js/underscore.js",
             "js/store.js",
-            "js/background.js",
-            "js/lunr.min.js"
+            "js/lunr.min.js",
+            "js/search.js",
+            "js/background.js"
         ]
     },
     "browser_action": {
