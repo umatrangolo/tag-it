@@ -67,7 +67,7 @@ var Store = {
 
         db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
             console.log("Journal has been updated for url " + url);
-            continuation();
+            continuation(item);
         };
     },
 

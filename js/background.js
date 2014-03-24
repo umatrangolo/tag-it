@@ -44,7 +44,8 @@ function setup(db) {
 
         if (request.msg == "add") {
             console.log("'Add' message received: " + JSON.stringify(request));
-            Store.save(db, request.title, request.url, request.tags, function(tagit) {
+            Store.save(db, request.title, request.url, request.tags, function(item) {
+                Search.add(index, item);
                 chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
                     tabs.forEach(function(tab) {
                         chrome.tabs.sendMessage(tab.id, { "action": "add" });
