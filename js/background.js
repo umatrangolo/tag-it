@@ -6,7 +6,7 @@ function setup(db) {
     // create the index
     Store.loadAll(db, function(journal) {
         console.log("Building index ...");
-        _.each(journal, function(element, index, list) {
+        _.each(journal, function(element, idx, list) {
             Search.add(index, element);
         });
     });
@@ -54,8 +54,8 @@ function setup(db) {
             });
         } else if (request.msg == "search") {
             console.log("'Search' message received: " + JSON.stringify(request));
-            var searchResults = index.search("css");
-            console.log("Search response is " + searchResults);
+            var searchResults = Search.search(index, request.terms);
+            console.log("Search response is " + JSON.stringify(searchResults));
             var searchResponse = {
                 query: request,
                 response: searchResults

@@ -1,18 +1,21 @@
 var Search = {
 
     open: function() {
-        return lunr(function () {
-            // TODO create schema
+        return lunr(function() {
+            this.field('url');
+            this.field('title');
+            this.field('tags', { boost: 10 });
+            this.ref('id');
         });
     },
 
     add: function(index, item) {
         console.log("Adding " + JSON.stringify(item) + " to the index");
-        // TODO
+        index.add(item);
     },
 
-    search: function(index, term) {
-        console.log("Searching for " + term);
-        // TODO
+    search: function(index, terms) {
+        console.log("Searching for " + terms);
+        return index.search(terms);
     }
 };
