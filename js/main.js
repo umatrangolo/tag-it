@@ -97,6 +97,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     // TODO
                 });
             });
+
+            document.getElementById('search').addEventListener('keyup', function() {
+                var searchTerms = document.getElementById('search').value;
+                console.log("Searching for [" + searchTerms + "] ...");
+                chrome.runtime.sendMessage({ msg: "search", "terms": searchTerms }, function(response) {
+                    console.log("Search response for " + searchTerms + " is " + JSON.stringify(response));
+                });
+            });
         });
     });
 });

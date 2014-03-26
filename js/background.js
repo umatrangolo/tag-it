@@ -52,6 +52,15 @@ function setup(db) {
                     });
                 });
             });
+        } else if (request.msg == "search") {
+            console.log("'Search' message received: " + JSON.stringify(request));
+            var searchResults = index.search("css");
+            console.log("Search response is " + searchResults);
+            var searchResponse = {
+                query: request,
+                response: searchResults
+            };
+            sendResponse(searchResponse);
         }
     });
 };
