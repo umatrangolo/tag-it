@@ -1,27 +1,51 @@
 var JournalGenerator = {
 
-    show: function(db, journal) {
+    show: function(db, journal, selected) {
+
+        function createJournalItem(item) {
+            var p = document.createElement('p');
+            p.classList.add("journal-item");
+
+            // TODO there should be a better way! --> React.js
+            var html = 
+                '<div id="journal-item-' + item.id + '">' +
+                '<button class="delete-journal-item" id="' + item.id + '" type="button">x</button>' +
+                '<a href="' + item.url + '">' + item.title + '</a>';
+
+            _.forEach(emitTags(item.tags), function(tag) {
+                html += tag;
+            });
+
+            html +='</div>';
+
+            p.innerHTML = html;
+            return p;
+        };        
+
+        function findScore(item, selected) {
+            return -1; // TODO
+        };
+
         var journalList = document.getElementById('journal-list');
+
+        console.log("Journal is " + JSON.stringify(journal));
+        console.log("Selected is " + JSON.stringify(selected));
+
+        journal.forEach(function(jtem) {
+            journal.score = findScore(jtem, selected);
+        });
+
+        journal.sort(function(a, b) {
+            if (a.score != b.score) {
+                return b.score - a.score;
+            } else {
+                return b.id - a.id;
+            }
+        });
 
         journal.forEach(function(j) {
             if (!j.deleted) {
-                var p = document.createElement('p');
-                p.classList.add("journal-item");
-
-                // TODO there should be a better way! --> React.js
-                var html =
-                        '<div id="journal-item-' + j.id + '">' +
-                        '<button class="delete-journal-item" id="' + j.id + '" type="button">x</button>' +
-                        '<a href="' + j.url + '">' + j.title + '</a>';
-
-                _.forEach(emitTags(j.tags), function(tag) {
-                    html += tag;
-                });
-
-                html +='</div>';
-
-                p.innerHTML = html;
-                journalList.appendChild(p);
+                journalList.appendChild(createJournalItem(j));
             }
         });
 
