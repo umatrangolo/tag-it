@@ -7,8 +7,7 @@ var JournalGenerator = {
             p.classList.add("journal-item");
 
             // TODO there should be a better way! --> React.js
-            var html = 
-                '<div id="journal-item-' + item.id + '">' +
+            var html = '<div id="journal-item-' + item.id + '">' +
                 '<button class="delete-journal-item" id="' + item.id + '" type="button">x</button>' +
                 '<a href="' + item.url + '">' + item.title + '</a>';
 
@@ -23,16 +22,21 @@ var JournalGenerator = {
         };        
 
         function findScore(item, selected) {
-            return -1; // TODO
+            var match =_.find(selected, function(e) {
+                return e.ref == item.id;
+            });
+
+            if (match != undefined) { 
+                return match.score; 
+            } else {
+                return -1;
+            }
         };
 
         var journalList = document.getElementById('journal-list');
 
-        console.log("Journal is " + JSON.stringify(journal));
-        console.log("Selected is " + JSON.stringify(selected));
-
         journal.forEach(function(jtem) {
-            journal.score = findScore(jtem, selected);
+            jtem.score = findScore(jtem, selected);
         });
 
         journal.sort(function(a, b) {
@@ -83,7 +87,7 @@ var JournalGenerator = {
         });
     },
 
-    refresh: function(journal) {
+    refresh: function(journal, selected) {
         JournalGenerator.remove();
         Store.open(function(db) {
             JournalGenerator.show(db, journal);
@@ -127,6 +131,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Searching for [" + searchTerms + "] ...");
                 chrome.runtime.sendMessage({ msg: "search", "terms": searchTerms }, function(response) {
                     console.log("Search response for " + searchTerms + " is " + JSON.stringify(response));
+                    Store.open(function(db) {
+                        Store.loadAll(db, function(journal) {
+                            JournalGenerator.remove();
+                            JournalGenerator.show(db, journal, response.response);
+                        });
+                    });         
                 });
             });
         });

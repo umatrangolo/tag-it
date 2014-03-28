@@ -5,6 +5,8 @@
 
 .journal-item a { text-decoration: none; }
 
+.journal-item-non-matching { color: AliceBlue; } 
+
 .delete-journal-item {
     margin-right: 6px;
 }
