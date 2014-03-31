@@ -9,7 +9,7 @@ var JournalGenerator = {
             // TODO there should be a better way! --> React.js
             var html = '<div id="journal-item-' + item.id + '">' +
                 '<button class="delete-journal-item" id="' + item.id + '" type="button">x</button>' +
-                '<a href="' + item.url + '">' + item.title + '</a>';
+                '<a href="' + item.url + '">' + item.title + ":" + item.score + ":" + item.deleted + '</a>';
 
             _.forEach(emitTags(item.tags), function(tag) {
                 html += tag;
@@ -19,15 +19,15 @@ var JournalGenerator = {
 
             p.innerHTML = html;
             return p;
-        };        
+        };
 
         function findScore(item, selected) {
             var match =_.find(selected, function(e) {
                 return e.ref == item.id;
             });
 
-            if (match != undefined) { 
-                return match.score; 
+            if (match != undefined) {
+                return match.score;
             } else {
                 return -1;
             }
@@ -48,7 +48,7 @@ var JournalGenerator = {
         });
 
         journal.forEach(function(j) {
-            if (!j.deleted) {
+            if (!j.deleted && !(j.score == -1 && selected != undefined && selected.length > 0)) {
                 journalList.appendChild(createJournalItem(j));
             }
         });
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             JournalGenerator.remove();
                             JournalGenerator.show(db, journal, response.response);
                         });
-                    });         
+                    });
                 });
             });
         });
