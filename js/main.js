@@ -9,7 +9,7 @@ var JournalGenerator = {
             // TODO there should be a better way! --> React.js
             var html = '<div id="journal-item-' + item.id + '">' +
                 '<button class="delete-journal-item" id="' + item.id + '" type="button">x</button>' +
-                '<a href="' + item.url + '">' + item.title + ":" + item.score + ":" + item.deleted + '</a>';
+                '<a href="' + item.url + '">' + item.title + '</a>';
 
             _.forEach(emitTags(item.tags), function(tag) {
                 html += tag;
