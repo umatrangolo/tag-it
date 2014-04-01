@@ -5,7 +5,7 @@
 
 .journal-item a { text-decoration: none; }
 
-.journal-item-non-matching { color: AliceBlue; } 
+.journal-item-non-matching { color: AliceBlue; }
 
 .delete-journal-item {
     margin-right: 6px;
@@ -21,7 +21,6 @@
 }
 
 .tag {
-    font-family: 'Inconsolata', sans-serif;
     font-size: small;
     background: #F3C5D4;
     padding: 1px 3px 0 3px;
