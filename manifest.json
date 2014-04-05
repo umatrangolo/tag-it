@@ -15,14 +15,15 @@
         ]
     },
     "browser_action": {
-        "default_icon": "public/icon.png"
+        "default_icon": "public/icon.png",
+        "default_popup": "html/popup.html"
     },
     "commands": {
         "journal": { // open a new tab with all the saves urls
             "suggested_key": { "default": "Alt+Shift+J" },
             "description": "Show the journal in a new tab"
         },
-        "save": {  // save current url in the journal
+        "_execute_browser_action": {  // save current url in the journal
             "suggested_key": { "default": "Alt+Shift+S" },
             "description": "Send a 'save' event to the extension"
         }
