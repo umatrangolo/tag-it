@@ -1,52 +1,50 @@
 var PopUp = {
 
-    buildUI: function(url, title, continuation) {
-        document.getElementById('title').innerHTML = title;
+  buildUI: function(url, title, continuation) {
+    document.getElementById('title').innerHTML = title;
 
-        document.getElementById('save').addEventListener('click', function(e) {
-            var data = document.getDocumentById('save').value;
-            var tags = [];
+    document.getElementById('save').addEventListener('click', function(e) {
+      var data = document.getElementById('tags').value;
+      var tags = [];
 
-            if (data) {
-                tags = data.tags.split(' ');
-                console.log("Tags are " + tags);
-            }
-            continuation(url, title, tags);
-        });
-    },
+      if (data) {
+        tags = data.split(' ');
+      }
 
-    extractInfo: function() {
+      continuation(url, title, tags);
+    });
+  },
 
+  extractInfo: function(continuation) {
+    chrome.tabs.query({
+      active: true
+    }, function(tabs) {
+      if (tabs.length > 0) {
+        continuation(tabs[0].title, tabs[0].url);
+      } else {
+        console.log("No active tabs");
+      }
+    });
+  },
 
-    },
-
-
-    extractTitle: function() {
-        return document.title;
-    },
-
-    extractUrl: function() {
-        return document.location.href;
-    },
-
-    sanitizeTags: function(tags) {
-        return _.filter(tags, function(t) {
-            return t.trim().length > 0; // TODO Get rid of html while sanitizing the tags
-        });
-    }
+  sanitizeTags: function(tags) {
+    return _.filter(tags, function(t) {
+      return t.trim().length > 0; // TODO Get rid of html while sanitizing the tags
+    });
+  }
 };
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    var url = PopUp.extractUrl();
-    var title = PopUp.extractTitle();
-
-    console.log("url " + url + ", title " + title);
-
-    PopUp.buildUI(url, title, function(url, title, tags) {
+  PopUp.extractInfo(
+    function(title, url) {
+      PopUp.buildUI(url, title, function(url, title, tags) {
         var sanitizedTags = PopUp.sanitizeTags(tags);
+        console.log("Saving " + title + "@" + url + " with tags: " + tags);
         chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": sanitizedTags }, function(response) {
-            // NOP
+          // NOP
         });
-    });
+      });
+    }
+  );
 });
