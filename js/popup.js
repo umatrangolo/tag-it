@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
         chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": sanitizedTags }, function(response) {
           // NOP
         });
+        console.log("Done!");
+        window.close();
       });
     }
   );
