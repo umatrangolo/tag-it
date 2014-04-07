@@ -3,7 +3,7 @@ var PopUp = {
   buildUI: function(url, title, continuation) {
     document.getElementById('title').innerHTML = title;
 
-    document.getElementById('save').addEventListener('click', function(e) {
+    document.getElementById('ftags').addEventListener('submit', function(e) {
       var data = document.getElementById('tags').value;
       var tags = [];
 
@@ -11,6 +11,7 @@ var PopUp = {
         tags = data.split(' ');
       }
 
+      e.preventDefault();
       continuation(url, title, tags);
     });
   },
