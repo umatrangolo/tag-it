@@ -17,7 +17,7 @@ x Move to chrome.storage to sync local storage between different browsers
   current page
 x Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderately
   sized data. We will lose sync but we simply can't use chrome.storage.*.
-- Search across all the saved journal items. The search has to be performed both
+x Search across all the saved journal items. The search has to be performed both
   on the title, on the date and on all its tags.
 - Fuzzy searching (ala Sublime Text)
 - Given that now we can't use chrome.sync to share items across all the browsers
