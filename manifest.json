@@ -7,9 +7,9 @@
     "permissions": [ "tabs", "storage", "activeTab", "<all_urls>" ],
     "background": {
         "scripts": [
-            "js/underscore.js",
+            "lib/underscore-min.js",
             "js/store.js",
-            "js/lunr.min.js",
+            "lib/lunr.min.js",
             "js/search.js",
             "js/background.js"
         ]

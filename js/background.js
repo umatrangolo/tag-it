@@ -14,12 +14,8 @@ function setup(db) {
     chrome.commands.onCommand.addListener(function(command) {
         if (command == "save") {
             // injecting all needed dependencies
-            chrome.tabs.executeScript(null, { file: "js/underscore.js" });
-            chrome.tabs.executeScript(null, { file: "js/jquery-2.1.0.min.js" });
-            chrome.tabs.executeScript(null, { file: "js/vex.combined.min.js" });
-            chrome.tabs.insertCSS(null, { file: "css/vex.css" });
-            chrome.tabs.insertCSS(null, { file: "css/vex-theme-flat-attack.css" });
-
+            chrome.tabs.executeScript(null, { file: "lib/underscore-min.js" });
+            chrome.tabs.executeScript(null, { file: "lib/jquery-2.1.1.min.js" });
             chrome.tabs.executeScript(null, { file: "js/tagit_ui.js" });
         } else if (command == "export") {
             chrome.tabs.create({ "url" : "html/export.html" }, function() {
