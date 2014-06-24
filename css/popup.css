@@ -1,0 +1,17 @@
+.title {
+    width: 640px;
+    margin-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.tags {
+    width: 640px;
+    border-style: none;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
+input:focus  {
+    outline: 0 none;
+}
