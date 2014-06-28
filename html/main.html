@@ -2,22 +2,30 @@
 <html>
   <head>
     <title>Tag It</title>
+    <meta charset="utf-8"/>
+
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
+
     <script src="../lib/underscore-min.js"></script>
     <script src="../js/store.js"></script>
     <script src="../js/main.js"></script>
   </head>
   <body>
-    <div class="main" id="main">
-      <div class="main_search_bar" id="main_search_bar">
-        <input id="search" type="text" placeholder="Search here..." required/>
+    <header>
+      <div class="main" id="main">
+        <span>
+          <input id="search" class="search" type="text" placeholder="Search here ..." required/>
+        </span>
       </div>
-      <div class="main_actions" id="main_actions">
-        <a id="export" href="#">Export</a>
-        <a id="import" href="#">Import</a>
-      </div>
+    </header>
+
+
+    <div class="main_actions" id="main_actions">
+      <a id="export" href="#">Export</a>
+      <a id="import" href="#">Import</a>
     </div>
+
     <div id="journal-list" class="journal-list"/>
   </body>
 </html>
