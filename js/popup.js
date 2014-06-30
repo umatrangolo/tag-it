@@ -2,6 +2,8 @@ var PopUp = {
 
   buildUI: function(url, title, continuation) {
     document.getElementById('title').innerHTML = title;
+    document.getElementById('sub-title').innerHTML = Utils.stripUrl(url);
+    document.getElementById('favicon').setAttribute('src', url + "/favicon.ico");
 
     document.getElementById('ftags').addEventListener('submit', function(e) {
       var data = document.getElementById('tags').value;

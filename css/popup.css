@@ -1,7 +1,12 @@
+.top {
+    margin-bottom: 6px;
+}
+
 .title {
     width: 640px;
     margin-bottom: 2px;
     font-family: Helvetica, Arial, sans-serif;
+    font-size: 19px;
 }
 
 .tags {
@@ -14,4 +19,35 @@
 
 input:focus  {
     outline: 0 none;
+}
+
+.favicon {
+  width: 14px;
+  height: 14px;
+  display: inline;
+  margin-left: 12px;
+  margin-top: 12px;
+}
+
+.title {
+  padding-top: 12px;
+  display: inline;
+}
+
+.sub-title {
+  margin-top: 2px;
+  padding-left: 12px;
+  color: gray;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.top hr {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.tags {
+  margin-left: 12px;
+  margin-right: 12px;
 }
