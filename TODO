@@ -25,3 +25,4 @@ x Search across all the saved journal items. The search has to be performed both
   enable some ML and social.
 x Remove dependency on Vex and use a plain action browser popup
 - UI that looks like this atom.io forum page: http://discuss.atom.io/
+- Bind Imports/Export actions to keyboard
