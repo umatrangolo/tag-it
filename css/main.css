@@ -57,3 +57,19 @@ header {
   background-position: 8px 50%;
   padding: 15px 20px 15px 28px;
 }
+
+.share-github {
+    float: right;
+    padding-right: 8px;
+    width:52px;
+    height:52px;
+    vertical-align:middle;
+    text-indent:-99999px;
+    font-size:0;
+    display:inline-block;
+    background:transparent url("chrome-extension://__MSG_@@extension_id__/public/entypo_github.svg") no-repeat;
+}
+
+.share-github:hover {
+    background-image: url("chrome-extension://__MSG_@@extension_id__/public/entypo_github_circle.svg");
+}
