@@ -31,25 +31,29 @@
     border: 1px solid #F3C5D4;
 }
 
-::-webkit-input-placeholder {
-    color: light-gray;
-    font-style: italic;
+input[type=search] {
+  outline: 0;
 }
 
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-    out¯line: none;
+header {
+    margin-top: 12px;
+    margin-left: 8px;
+    margin-bottom: 4px;
+    margin-right: 2px;
 }
 
-.search {
-  width: 640px;
-  height: 28px;
-  margin: 24px 24px 24px 24px;
+.search-bar {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  font-style: normal;
-  border: 0px solid;
-  border-bottom: 1px solid #949599;
+  font-size: 18px;
+  font-weight: 400;
+  width: 60%;
+  height: 32px;
+  border: 0px;
+  border-radius: 3px;
+  background-color: rgba(0, 0, 0, 0.027451);
+  box-shadow: none;
+  background-image: url('chrome-extension://__MSG_@@extension_id__/public/search.png');
+  background-repeat: no-repeat;
+  background-position: 8px 50%;
+  padding: 15px 20px 15px 28px;
 }
