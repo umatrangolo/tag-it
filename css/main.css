@@ -17,7 +17,7 @@
 }
 
 .journal-bar {
-        font-family: Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .tag {
@@ -32,7 +32,7 @@
 }
 
 input[type=search] {
-  outline: 0;
+    outline: 0;
 }
 
 header {
@@ -43,17 +43,39 @@ header {
 }
 
 .search-bar {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  width: 60%;
-  height: 32px;
-  border: 0px;
-  border-radius: 3px;
-  background-color: rgba(0, 0, 0, 0.027451);
-  box-shadow: none;
-  background-image: url('chrome-extension://__MSG_@@extension_id__/public/search.png');
-  background-repeat: no-repeat;
-  background-position: 8px 50%;
-  padding: 15px 20px 15px 28px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    width: 60%;
+    height: 32px;
+    border: 0px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.027451);
+    box-shadow: none;
+    background-image: url('chrome-extension://__MSG_@@extension_id__/public/search.png');
+    background-repeat: no-repeat;
+    background-position: 8px 50%;
+    padding: 15px 20px 15px 28px;
+}
+
+.bttn-export {
+    background-color: rgba(0, 0, 0, 0.027451);
+    border-radius: 5px;
+    border: 0px;
+    float: right;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    height: 28px;
+    margin-right: 128px;
+    margin-top: 4px;
+    width: 80px;
+}
+
+.bttn:hover {
+    font-weight: bold;
+}
+
+.hr-search-bar {
+    margin-left: 8px;
+    margin-right: 120px;
 }
