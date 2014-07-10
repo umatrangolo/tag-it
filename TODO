@@ -27,3 +27,6 @@ x Remove dependency on Vex and use a plain action browser popup
 - UI that looks like this atom.io forum page: http://discuss.atom.io/
 - Bind Imports/Export actions to keyboard
 - Abbreviate the page title when it is too long
+- Autocomplete on previously inserted tags
+- Avoid duplicates
+- Store locally favicon(S)
