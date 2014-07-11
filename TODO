@@ -24,9 +24,9 @@ x Search across all the saved journal items. The search has to be performed both
   we need a svc somewhere that acts like a store for everyone items. This then will
   enable some ML and social.
 x Remove dependency on Vex and use a plain action browser popup
-- UI that looks like this atom.io forum page: http://discuss.atom.io/
+x UI that looks like this atom.io forum page: http://discuss.atom.io/
 - Bind Imports/Export actions to keyboard
 - Abbreviate the page title when it is too long
 - Autocomplete on previously inserted tags
 - Avoid duplicates
-- Store locally favicon(S)
+- Store locally favicon(s)

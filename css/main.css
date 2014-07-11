@@ -12,23 +12,13 @@
 }
 
 .journal-list {
-    margin-top: 12px;
+    margin-top: 24px;
+    margin-left: 8px;
     font-family: Helvetica, Arial, sans-serif;
 }
 
 .journal-bar {
     font-family: Helvetica, Arial, sans-serif;
-}
-
-.tag {
-    font-size: small;
-    background: #F3C5D4;
-    padding: 1px 3px 0 3px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
-    border-radius: 5px;
-    border: 1px solid #F3C5D4;
 }
 
 input[type=search] {
@@ -78,4 +68,72 @@ header {
 .hr-search-bar {
     margin-left: 8px;
     margin-right: 120px;
+}
+
+.card {
+    width: 90%;
+    height: 44px;
+}
+
+.actions {
+    float: left;
+    width: 4%;
+    height: 44px;
+}
+
+.item {
+    float: left;
+    width: 96%;
+    height: 44px;
+}
+
+.page {
+    float: left;
+    width: 70%;
+    height: 44px;
+}
+
+.tags {
+    float: left;
+    width: 30%;
+    height: 44px;
+}
+
+.item-favicon {
+    width: 16px;
+    height: 16px;
+    display: inline;
+    margin-left: 12px;
+    margin-top: 4px;
+}
+
+.item-title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    display: inline;
+    padding-left: 4px;
+}
+
+.item-sub-title {
+    margin-top: 2px;
+    padding-left: 28px;
+    color: gray;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    padding-left: 32px;
+}
+
+.tag {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    background: rgba(0, 0, 0, 0.027451);
+    padding: 1px 3px 1px 3px;
+    margin: 2px 2px 2px 2px;
+    border-radius: 5px;
+    border: 0px solid #F3C5D4;
+}
+
+.actions-delete {
+    margin-top: 2px;
+    display: inline-block;
 }

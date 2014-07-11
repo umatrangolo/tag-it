@@ -2,23 +2,30 @@ var JournalGenerator = {
 
     show: function(db, journal, selected) {
 
-        function createJournalItem(item) {
-            var p = document.createElement('p');
-            p.classList.add("journal-item");
+      function createJournalItem(item) {
+          var p = document.createElement('p');
+          p.classList.add("journal-item");
 
-            // TODO there should be a better way! --> React.js
-            var html = '<div id="journal-item-' + item.id + '">' +
-                '<button class="delete-journal-item" id="' + item.id + '" type="button">x</button>' +
-                '<a href="' + item.url + '">' + item.title + '</a>';
+          var html = '<div id=journal-item-"' + item.id + '" class="card">' +
+                      '<div class="actions">' +
+                        '<button id="delete-journal-item-' + item.id  + '" class="actions-delete">X</button>' +
+                      '</div>' +
+                      '<div class="item">' +
+                        '<div class="page">' +
+                        '<img id="favicon" class="item-favicon" src="../public/react.png">' +
+                        '<a id="title" class="item-title" href="' + item.url  + '">' + item.title + '</a>' +
+                        '<p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                      '</div>' +
+                      '<div class="tags">';
 
-            _.forEach(emitTags(item.tags), function(tag) {
-                html += tag;
-            });
+          _.forEach(emitTags(item.tags), function(tag) {
+            html += tag;
+          });
 
-            html +='</div>';
+          html += '</div></div>';
+          p.innerHTML = html;
 
-            p.innerHTML = html;
-            return p;
+          return p;
         };
 
         function findScore(item, selected) {
