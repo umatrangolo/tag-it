@@ -12,8 +12,8 @@ var JournalGenerator = {
                       '</div>' +
                       '<div class="item">' +
                         '<div class="page">' +
-                        '<img id="favicon" class="item-favicon" src="../public/react.png">' +
-                        '<a id="title" class="item-title" href="' + item.url  + '">' + item.title + '</a>' +
+                        '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
+                        '<a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
                         '<p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
                       '</div>' +
                       '<div class="tags">';

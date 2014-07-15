@@ -72,31 +72,31 @@ header {
 
 .card {
     width: 90%;
-    height: 44px;
+    height: 38px;
 }
 
 .actions {
     float: left;
     width: 4%;
-    height: 44px;
+    height: 38px;
 }
 
 .item {
     float: left;
     width: 96%;
-    height: 44px;
+    height: 38px;
 }
 
 .page {
     float: left;
     width: 70%;
-    height: 44px;
+    height: 38px;
 }
 
 .tags {
     float: left;
     width: 30%;
-    height: 44px;
+    height: 38px;
 }
 
 .item-favicon {
@@ -111,7 +111,7 @@ header {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 15px;
     display: inline;
-    padding-left: 4px;
+    padding-left: 8px;
 }
 
 .item-sub-title {
@@ -120,7 +120,7 @@ header {
     color: gray;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;
-    padding-left: 32px;
+    padding-left: 36px;
 }
 
 .tag {
