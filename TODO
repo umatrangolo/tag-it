@@ -30,3 +30,4 @@ x UI that looks like this atom.io forum page: http://discuss.atom.io/
 - Autocomplete on previously inserted tags
 - Avoid duplicates
 - Store locally favicon(s)
+- Delete by scrolling and hitting 'delete' key
