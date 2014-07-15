@@ -3,6 +3,17 @@ var JournalGenerator = {
     show: function(db, journal, selected) {
 
       function createJournalItem(item) {
+
+          function emitTags(tags) {
+            var ts = "";
+
+            _.forEach(tags, function(tag) {
+              ts += '<span class="tag">#' + tag + '</span>';
+            });
+
+            return ts;
+          }
+
           var p = document.createElement('p');
           p.classList.add("journal-item");
 
@@ -16,14 +27,13 @@ var JournalGenerator = {
                       '<div class="item">' +
                         '<div class="page">' +
                           '<a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
-                          '<p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
-                        '</div>' +
-                      '</div>' +
-                      '<div class="tags">';
-
-          _.forEach(emitTags(item.tags), function(tag) {
-            html += tag;
-          });
+                          '<div class="page-info">' +
+                          '  <div class="domain">' +
+                          '    <p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                          '  </div>' +
+                          '  <div class="tags">' + emitTags(item.tags) +
+                          '  </div>' +
+                          '</div>';
 
           html += '</div></div>';
           p.innerHTML = html;
@@ -85,7 +95,7 @@ var JournalGenerator = {
 
         function emitTags(tags) {
             return _.map(tags, function(tag) {
-                return '<span class="tag">' + tag + '</span>';
+                return '<span class="tag">#' + tag + '</span>';
             });
         }
     },

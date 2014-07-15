@@ -72,37 +72,32 @@ header {
 
 .card {
     width: 90%;
-    height: 38px;
+    height: 35px;
 }
 
 .actions {
     float: left;
     width: 4%;
-    height: 38px;
+    height: 35px;
 }
 
 .item {
     float: left;
     width: 94%;
-    height: 38px;
+    height: 35px;
 }
 
 .page {
     float: left;
     width: 70%;
-    height: 38px;
-}
-
-.tags {
-    float: left;
-    width: 30%;
-    height: 38px;
+    height: 35px;
 }
 
 .favicon {
+  margin-top: 1px;
   float: left;
   width: 2%;
-  height: 38px;
+  height: 35px;
 }
 
 .item-favicon {
@@ -117,7 +112,6 @@ header {
 .item-title {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 15px;
-    display: inline;
     padding-left: 8px;
 }
 
@@ -132,14 +126,30 @@ header {
 .tag {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;
-    background: rgba(0, 0, 0, 0.027451);
-    padding: 1px 3px 1px 3px;
     margin: 2px 2px 2px 2px;
-    border-radius: 5px;
-    border: 0px solid #F3C5D4;
 }
 
 .actions-delete {
     margin-top: 2px;
     display: inline-block;
+}
+
+.tags {
+    display: inline;
+    float: right;
+    width: 80%;
+    height: 17px;
+    color: gray;
+}
+
+.domain {
+    float: left;
+    display: inline;
+    height: 17px;
+    width: 20%;
+}
+
+.page-info {
+    height: 17px;
+    width: 100%;
 }
