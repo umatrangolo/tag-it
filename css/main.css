@@ -83,7 +83,7 @@ header {
 
 .item {
     float: left;
-    width: 96%;
+    width: 94%;
     height: 38px;
 }
 
@@ -99,13 +99,20 @@ header {
     height: 38px;
 }
 
-.item-favicon {
-    width: 16px;
-    height: 16px;
-    display: inline;
-    margin-left: 12px;
-    margin-top: 4px;
+.favicon {
+  float: left;
+  width: 2%;
+  height: 38px;
 }
+
+.item-favicon {
+  width: 16px;
+  height: 16px;
+  display: inline;
+  margin-left: 2px;
+  margin-top: 0px;
+}
+
 
 .item-title {
     font-family: Helvetica, Arial, sans-serif;
@@ -116,11 +123,10 @@ header {
 
 .item-sub-title {
     margin-top: 2px;
-    padding-left: 28px;
     color: gray;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;
-    padding-left: 36px;
+    padding-left: 8px;
 }
 
 .tag {

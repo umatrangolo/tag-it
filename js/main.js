@@ -10,11 +10,14 @@ var JournalGenerator = {
                       '<div class="actions">' +
                         '<button id="delete-journal-item-' + item.id  + '" class="actions-delete">X</button>' +
                       '</div>' +
+                      '<div class="favicon">' +
+                        '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
+                      '</div>' +
                       '<div class="item">' +
                         '<div class="page">' +
-                        '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
-                        '<a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
-                        '<p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                          '<a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
+                          '<p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                        '</div>' +
                       '</div>' +
                       '<div class="tags">';
 
