@@ -1,7 +1,7 @@
 var PopUp = {
 
   buildUI: function(url, title, continuation) {
-    document.getElementById('title').innerHTML = title;
+    document.getElementById('title').innerHTML = abbreviate(title, 70, "...");
     document.getElementById('sub-title').innerHTML = Utils.stripUrl(url);
     document.getElementById('favicon').setAttribute('src', Utils.urlForFavicon(Utils.stripUrl(url)));
 
