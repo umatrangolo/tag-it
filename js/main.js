@@ -18,9 +18,6 @@ var JournalGenerator = {
           p.classList.add("journal-item");
 
           var html = '<div id=journal-item-"' + item.id + '" class="card">' +
-                      '<div class="actions">' +
-                        '<button id="delete-journal-item-' + item.id  + '" class="actions-delete">X</button>' +
-                      '</div>' +
                       '<div class="favicon">' +
                         '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
                       '</div>' +
