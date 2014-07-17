@@ -13,8 +13,8 @@ var PopUp = {
         tags = data.split(' ');
       }
 
-      e.preventDefault();
       continuation(url, title, tags);
+      e.preventDefault();
     });
   },
 
@@ -37,7 +37,6 @@ var PopUp = {
   }
 };
 
-
 document.addEventListener('DOMContentLoaded', function() {
   PopUp.extractInfo(
     function(title, url) {
@@ -45,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var sanitizedTags = PopUp.sanitizeTags(tags);
         console.log("Saving " + title + "@" + url + " with tags: " + tags);
         chrome.runtime.sendMessage({ msg: "add", "url": url, "title": title, "tags": sanitizedTags }, function(response) {
+          con
           // NOP
         });
         console.log("Done!");

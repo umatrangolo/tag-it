@@ -17,19 +17,22 @@ var JournalGenerator = {
           var p = document.createElement('p');
           p.classList.add("journal-item");
 
-          var html = '<div id=journal-item-"' + item.id + '" class="card">' +
-                      '<div class="favicon">' +
-                        '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
-                      '</div>' +
-                      '<div class="item">' +
-                        '<div class="page">' +
-                          '<a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
-                          '<div class="page-info">' +
-                          '  <div class="domain">' +
-                          '    <p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
-                          '  </div>' +
-                          '  <div class="tags">' + emitTags(item.tags) +
-                          '  </div>' +
+          var html = '<div id=journal-item-' + item.id + ' class="card">' +
+                     '  <div class="actions">' +
+                     '    <img id="' + item.id + '" class="delete-journal-item" src="../public/delete.png"></img>' +
+                     '  </div>' +
+                       '<div class="favicon">' +
+                          '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
+                       '</div>' +
+                     '  <div class="item">' +
+                       '  <div class="page">' +
+                         '  <a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
+                          ' <div class="page-info">' +
+                          '   <div class="domain">' +
+                          '     <p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                          '   </div>' +
+                          ' <div class="tags">' + emitTags(item.tags) +
+                          ' </div>' +
                           '</div>';
 
           html += '</div></div>';

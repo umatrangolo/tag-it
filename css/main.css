@@ -8,7 +8,8 @@
 .journal-item-non-matching { color: AliceBlue; }
 
 .delete-journal-item {
-    margin-right: 6px;
+    width: 16px;
+    height: 16px;
 }
 
 .journal-list {
@@ -77,13 +78,13 @@ header {
 
 .actions {
     float: left;
-    width: 4%;
+    width: 2%;
     height: 35px;
 }
 
 .item {
     float: left;
-    width: 94%;
+    width: 96%;
     height: 35px;
 }
 
