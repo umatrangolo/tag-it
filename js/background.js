@@ -16,7 +16,6 @@ function setup(db) {
             // injecting all needed dependencies
             chrome.tabs.executeScript(null, { file: "lib/underscore-min.js" });
             chrome.tabs.executeScript(null, { file: "lib/jquery-2.1.1.min.js" });
-            chrome.tabs.executeScript(null, { file: "js/tagit_ui.js" });
         } else if (command == "export") {
             chrome.tabs.create({ "url" : "html/export.html" }, function() {
                 console.log("Exporting Journal ...");
@@ -41,12 +40,12 @@ function setup(db) {
         if (request.msg == "add") {
             console.log("'Add' message received: " + JSON.stringify(request));
             Store.save(db, request.title, request.url, request.tags, function(item) {
-                Search.add(index, item);
-                chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
-                    tabs.forEach(function(tab) {
-                        chrome.tabs.sendMessage(tab.id, { "action": "add" });
-                    });
+              Search.add(index, item);
+              chrome.tabs.query({ "title": "Tag It" }, function(tabs) {
+                tabs.forEach(function(tab) {
+                  chrome.tabs.sendMessage(tab.id, { "action": "add" });
                 });
+              });
             });
         } else if (request.msg == "search") {
             console.log("'Search' message received: " + JSON.stringify(request));

@@ -26,8 +26,8 @@ x Search across all the saved journal items. The search has to be performed both
 x Remove dependency on Vex and use a plain action browser popup
 x UI that looks like this atom.io forum page: http://discuss.atom.io/
 - Bind Imports/Export actions to keyboard
-- Abbreviate the page title when it is too long
+x Abbreviate the page title when it is too long
 - Autocomplete on previously inserted tags
-- Avoid duplicates
+x Avoid duplicates
 - Store locally favicon(s)
 - Delete by scrolling and hitting 'delete' key

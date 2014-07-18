@@ -34,6 +34,10 @@ var Store = {
             var journalObjStore = db.createObjectStore(Store.JOURNAL_STORE, { keyPath: "id" });
             journalObjStore.createIndex("id", "id", { unique: true });
 
+            // create indexes on title and url
+            var journalObjStoreByTitle = journalObjStore.createIndex("title", "title", { unique: true });
+            var journalObjStoreByUrl = journalObjStore.createIndex("url", "url", { unique: false });
+
             journalObjStore.transaction.oncomplete = function(event) { // here we are sure the store is in place
                 console.log("TagIt DB successfully created");
                 continuation(db);
