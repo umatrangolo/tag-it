@@ -19,11 +19,11 @@
         "default_popup": "html/popup.html"
     },
     "commands": {
-        "journal": { // open a new tab with all the saves urls
+        "journal": {
             "suggested_key": { "default": "Alt+Shift+J" },
             "description": "Show the journal in a new tab"
         },
-        "_execute_browser_action": {  // save current url in the journal
+        "_execute_browser_action": {
             "suggested_key": { "default": "Alt+Shift+S" },
             "description": "Send a 'save' event to the extension"
         }
