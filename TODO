@@ -11,8 +11,6 @@ x Export the Journal to json
 x Move to chrome.storage to sync local storage between different browsers
 - Importing journal
 - Tagging PDF documents misses a title
-- Automatically add tags on different contents: e.g. if I tag a PDF then add #pdf
-  to the journal item
 - Lots of web pages have a div of class='tags': use that to suggest tags for the
   current page
 x Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderately
@@ -31,3 +29,5 @@ x Abbreviate the page title when it is too long
 x Avoid duplicates
 - Store locally favicon(s)
 - Delete by scrolling and hitting 'delete' key
+- Move to Angular.js
+- PDF tagging support (use PDF.js)
