@@ -1,3 +1,5 @@
+var PDF = {};
+
 var PopUp = {
 
   buildUI: function(url, title, continuation) {
@@ -23,10 +25,20 @@ var PopUp = {
       active: true
     }, function(tabs) {
       if (tabs.length > 0) {
+
+        PDFJS.getDocument(tabs[0].url).then(function(pdf) {
+          pdf.getPage(1).then(function(page) {
+            page.getTextContent().then(function(text) {
+
+            });
+          });
+        });
+
         var extractor = Extractors.extractorFor(tabs[0]);
-        var info = extractor(tabs[0]);
-        console.log("Info is " + JSON.stringify(info));
-        continuation(info.title, info.url);
+        extractor(tabs[0], function(info) {
+          console.log("Info is " + JSON.stringify(info));
+          continuation(info.title, info.url);
+        });
       } else {
         console.log("No active tabs");
       }
