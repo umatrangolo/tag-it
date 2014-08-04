@@ -23,7 +23,10 @@ var PopUp = {
       active: true
     }, function(tabs) {
       if (tabs.length > 0) {
-        continuation(tabs[0].title, tabs[0].url);
+        var extractor = Extractors.extractorFor(tabs[0]);
+        var info = extractor(tabs[0]);
+        console.log("Info is " + JSON.stringify(info));
+        continuation(info.title, info.url);
       } else {
         console.log("No active tabs");
       }
