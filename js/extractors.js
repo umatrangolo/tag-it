@@ -1,7 +1,8 @@
 var Extractors = {
 
   extractorFor: function(tab) {
-    if (Utils.endsWith(tab.url, ".pdf") || Utils.endsWith(tab.url, "=pdf")) {
+    if (Utils.endsWith(tab.url, ".pdf") ||
+        Utils.endsWith(tab.url, "=pdf")) { // hack for Citeseer cached papers
       return Extractors.pdf;
     } else {
       return Extractors.default;

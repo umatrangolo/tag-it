@@ -1,5 +1,3 @@
-var PDF = {};
-
 var PopUp = {
 
   buildUI: function(url, title, continuation) {
@@ -14,6 +12,9 @@ var PopUp = {
       if (data) {
         tags = data.split(' ');
       }
+
+      tags = Tagger.augment(url, tags);
+      console.log('All tags are ' + tags);
 
       continuation(url, title, tags);
       e.preventDefault();
