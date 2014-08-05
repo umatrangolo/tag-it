@@ -26,14 +26,6 @@ var PopUp = {
     }, function(tabs) {
       if (tabs.length > 0) {
 
-        PDFJS.getDocument(tabs[0].url).then(function(pdf) {
-          pdf.getPage(1).then(function(page) {
-            page.getTextContent().then(function(text) {
-
-            });
-          });
-        });
-
         var extractor = Extractors.extractorFor(tabs[0]);
         extractor(tabs[0], function(info) {
           console.log("Info is " + JSON.stringify(info));
