@@ -29,7 +29,7 @@ var JournalGenerator = {
                          '  <a id="title" class="item-title" href="' + item.url  + '">' + abbreviate(item.title, 110, '...') + '</a>' +
                           ' <div class="page-info">' +
                           '   <div class="domain">' +
-                          '     <p id="sub-title" class="item-sub-title">' + Utils.stripUrl(item.url) + '</p>' +
+                          '     <p id="sub-title" class="item-sub-title">' + abbreviate(Utils.stripUrl(item.url), 36) + '</p>' +
                           '   </div>' +
                           ' <div class="tags">' + emitTags(item.tags) +
                           ' </div>' +
