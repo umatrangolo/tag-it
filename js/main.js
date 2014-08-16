@@ -31,7 +31,7 @@ var JournalGenerator = {
                           '   <div class="domain">' +
                           '     <p id="sub-title" class="item-sub-title">' + abbreviate(Utils.stripUrl(item.url), 36) + '</p>' +
                           '   </div>' +
-                          ' <div class="tags">' + emitTags(item.tags) +
+                          '   <div class="tags">' + emitTags(item.tags) +
                           ' </div>' +
                           '</div>';
 

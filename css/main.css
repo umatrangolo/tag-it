@@ -133,7 +133,7 @@ header {
 .tags {
     display: inline;
     float: right;
-    width: 80%;
+    width: 60%;
     height: 17px;
     color: gray;
 }
@@ -142,7 +142,7 @@ header {
     float: left;
     display: inline;
     height: 17px;
-    width: 20%;
+    width: 40%;
 }
 
 .page-info {
