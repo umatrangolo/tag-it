@@ -2,7 +2,7 @@ x Add a delete link for an item in the journal
 x Start CSS for the Journal page
 x The tab has to refresh itself each time the Journal changes
 x Do not use a list
-- When tagging a PDF paper we should extract its title
+x When tagging a PDF paper we should extract its title
 - When tagging something with a feed we should propose to tag entire feed
 x When clicking on the browser icon we should open the Journal tab
 x Export the Journal to json
@@ -10,7 +10,7 @@ x Export the Journal to json
   Should be impl using the sendMessage() / onMessage mechanism
 x Move to chrome.storage to sync local storage between different browsers
 - Importing journal
-- Tagging PDF documents misses a title
+x Tagging PDF documents misses a title
 - Lots of web pages have a div of class='tags': use that to suggest tags for the
   current page
 x Move to IndexedDB ASAP! chorme.storage.sync is too small to store even moderately
@@ -30,4 +30,4 @@ x Avoid duplicates
 - Store locally favicon(s)
 - Delete by scrolling and hitting 'delete' key
 - Move to Angular.js
-- PDF tagging support (use PDF.js)
+x PDF tagging support (use PDF.js)
