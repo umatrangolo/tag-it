@@ -66,8 +66,8 @@ var Store = {
     },
 
     // store a new journal item
-    save: function(db, title, url, tags, continuation) {
-        var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "deleted": false };
+    save: function(db, title, url, tags, favicon, continuation) {
+        var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "favicon": favicon, "deleted": false };
 
         db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
             console.log("Journal has been updated for url " + url);
