@@ -11,6 +11,7 @@
             "js/store.js",
             "lib/lunr.min.js",
             "js/search.js",
+            "js/utils.js",
             "js/background.js"
         ]
     },

@@ -57,6 +57,8 @@ var Store = {
             var cursor = event.target.result;
 
             if (cursor) {
+                // var item = cursor.value;
+                // item['favicon'] = window.atob(item['favicon']);
                 journal.push(cursor.value);
                 cursor.continue();
             } else {
@@ -67,7 +69,8 @@ var Store = {
 
     // store a new journal item
     save: function(db, title, url, tags, favicon, continuation) {
-        var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "favicon": favicon, "deleted": false };
+        var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "favicon": window.btoa(favicon), "deleted": false };
+        console.log("Storing item: " + JSON.stringify(item));
 
         db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
             console.log("Journal has been updated for url " + url);
