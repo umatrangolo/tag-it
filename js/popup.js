@@ -25,23 +25,23 @@ var PopUp = {
     chrome.tabs.query({
       active: true
     }, function(tabs) {
-      if (tabs.length > 0) {
+         if (tabs.length > 0) {
 
-        var extractor = Extractors.extractorFor(tabs[0]);
-        extractor(tabs[0], function(info) {
-          console.log("Info is " + JSON.stringify(info));
-          continuation(info.title, info.url);
-        });
-      } else {
-        console.log("No active tabs");
-      }
-    });
+           var extractor = Extractors.extractorFor(tabs[0]);
+           extractor(tabs[0], function(info) {
+             console.log("Info is " + JSON.stringify(info));
+             continuation(info.title, info.url);
+           });
+         } else {
+           console.log("No active tabs");
+         }
+       });
   },
 
   sanitizeTags: function(tags) {
     return _.filter(tags, function(t) {
-      return t.trim().length > 0; // TODO Get rid of html while sanitizing the tags
-    });
+             return t.trim().length > 0; // TODO Get rid of html while sanitizing the tags
+           });
   }
 };
 

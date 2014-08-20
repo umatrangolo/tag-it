@@ -16,15 +16,15 @@
  * @return {string} the abbreviated string
  */
 function abbreviate (user_str, user_max, user_suffix) {
-    var suffix = (typeof user_suffix !== 'undefined' ? user_suffix : '...');
-    var max = user_max - suffix.length;
-    var string = clean_string(user_str); // remove all extraneous white space
+  var suffix = (typeof user_suffix !== 'undefined' ? user_suffix : '...');
+  var max = user_max - suffix.length;
+  var string = clean_string(user_str); // remove all extraneous white space
 
-    if (shorter_than(string, max)) {
-        return string;
-    }
+  if (shorter_than(string, max)) {
+    return string;
+  }
 
-    return crop(string, max, suffix);
+  return crop(string, max, suffix);
 }
 
 /**
@@ -34,11 +34,11 @@ function abbreviate (user_str, user_max, user_suffix) {
  * @return {string} the string cleared of unnecessary spaces
  */
 function clean_string (string) {
-    var startend_spaces = /^\s+|\s+$/g;
-    var linebreak_spaces = /[\r\n]*\s*[\r\n]+/g;
-    var tab_spaces = /[ \t]+/g;
+  var startend_spaces = /^\s+|\s+$/g;
+  var linebreak_spaces = /[\r\n]*\s*[\r\n]+/g;
+  var tab_spaces = /[ \t]+/g;
 
-    return string.replace(startend_spaces, '').replace(linebreak_spaces, ' ').replace(tab_spaces, ' ');
+  return string.replace(startend_spaces, '').replace(linebreak_spaces, ' ').replace(tab_spaces, ' ');
 }
 
 /**
@@ -49,7 +49,7 @@ function clean_string (string) {
  * @return {boolean} whether the length of the string exceeds the maximum
  */
 function shorter_than (string, max) {
-    return string.length <= max;
+  return string.length <= max;
 }
 
 /**
@@ -63,26 +63,26 @@ function shorter_than (string, max) {
  * @return {string} the abbreviated string
  */
 function crop (string, max, suffix) {
-    var abbr = '';
-    var counter = 0;
-    var len;
-    var ending_space = /[ ]$/g;
+  var abbr = '';
+  var counter = 0;
+  var len;
+  var ending_space = /[ ]$/g;
 
-    string = string.split(' ');
-    len = string.length;
+  string = string.split(' ');
+  len = string.length;
 
-    while (counter < len) {
-        // individual characters of a string can be accessed via bracket notation
-        if ((abbr + string[counter]).length < max) {
-            abbr += string[counter] + ' ';
-        } else {
-            break;
-        }
-
-        counter++;
+  while (counter < len) {
+    // individual characters of a string can be accessed via bracket notation
+    if ((abbr + string[counter]).length < max) {
+      abbr += string[counter] + ' ';
+    } else {
+      break;
     }
 
-    return abbr.replace(ending_space, '') + suffix;
+    counter++;
+  }
+
+  return abbr.replace(ending_space, '') + suffix;
 }
 
 // Example usage:
