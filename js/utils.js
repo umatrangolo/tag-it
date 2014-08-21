@@ -13,15 +13,19 @@ var Utils = {
   },
 
   loadFavicon: function(url, continuation) {
+    var reader = new FileReader();
     var xhr = new XMLHttpRequest();
-    var blob;
 
     xhr.open("GET", Utils.urlForFavicon(Utils.stripUrl(url)), true);
     xhr.responseType = "blob";
-    xhr.addEventListener("load", function () {
+    xhr.addEventListener("load", function() {
       if (xhr.status === 200) {
-        console.log("Favicon successfully retrieved");
-        continuation(xhr.response);
+        reader.onload = function(e) {
+          var blob = new Blob([e.target.result], { type: "image" });
+          continuation(blob);
+        }
+
+        reader.readAsArrayBuffer(xhr.response);
       }
     }, false);
 

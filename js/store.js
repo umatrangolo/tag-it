@@ -57,9 +57,8 @@ var Store = {
       var cursor = event.target.result;
 
       if (cursor) {
-        // var item = cursor.value;
-        // item['favicon'] = window.atob(item['favicon']);
-        journal.push(cursor.value);
+        var item = cursor.value;
+        journal.push(item);
         cursor.continue();
       } else {
         continuation(journal);
@@ -78,7 +77,7 @@ var Store = {
     };
   },
 
-    // soft delete an item from the journal
+  // soft delete an item from the journal
   delete: function(db, id, continuation) {
     var tx = db.transaction([ Store.JOURNAL_STORE ], "readwrite");
     var journalStore = tx.objectStore(Store.JOURNAL_STORE);

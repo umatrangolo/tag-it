@@ -22,7 +22,7 @@ var JournalGenerator = {
         '    <img id="' + item.id + '" class="delete-journal-item" src="../public/delete.png"></img>' +
         '  </div>' +
         '<div class="favicon">' +
-        '<img id="favicon" class="item-favicon" src="' + Utils.urlForFavicon(Utils.stripUrl(item.url))  + '">' +
+        '<img id="favicon" class="item-favicon" src="' + URL.createObjectURL(item.favicon) + '">' +
         '</div>' +
         '  <div class="item">' +
         '  <div class="page">' +
