@@ -58,6 +58,7 @@ var Store = {
 
       if (cursor) {
         var item = cursor.value;
+        item.favicon = new Blob([item.favicon], {type: 'image'});
         journal.push(item);
         cursor.continue();
       } else {
@@ -68,13 +69,18 @@ var Store = {
 
   // store a new journal item
   save: function(db, title, url, tags, favicon, continuation) {
-    var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "favicon": window.btoa(favicon), "deleted": false };
-    console.log("Storing item: " + JSON.stringify(item));
-
-    db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
-      console.log("Journal has been updated for url " + url);
-      continuation(item);
-    };
+    // converting favicon blob to an ArrayBuffer to workaround Chrome lacks of support
+    // for storing Blob into IndexedDB.
+    var fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(favicon);
+    fileReader.onload = function(e) {
+      var item = { "id": Date.now(), "url": url, "title": title, "tags": tags, "favicon": e.target.result, "deleted": false };
+      console.log("Storing item: " + JSON.stringify(item));
+      db.transaction([ Store.JOURNAL_STORE ], "readwrite").objectStore(Store.JOURNAL_STORE).add(item).onsuccess = function(event) {
+        console.log("Journal has been updated for url " + url);
+        continuation(item);
+      };
+    }
   },
 
   // soft delete an item from the journal
