@@ -27,7 +27,7 @@ x UI that looks like this atom.io forum page: http://discuss.atom.io/
 x Abbreviate the page title when it is too long
 - Autocomplete on previously inserted tags
 x Avoid duplicates
-- Store locally favicon(s)
+x Store locally favicon(s)
 - Delete by scrolling and hitting 'delete' key
 - Move to Angular.js
 x PDF tagging support (use PDF.js)
