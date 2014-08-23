@@ -1,18 +1,20 @@
-document.addEventListener('DOMContentLoaded', function () {
-  Store.open(function(db) {
-    Store.loadAll(db, function(journal) {
+var Export = {
+  exportJournal: function(journal, continuation) {
 
-      function filterDeleted(journal) {
-        return _.filter(journal, function(e) { return e.deleted != true; });
-      }
+    function filterDeleted(journal) {
+      return _.filter(journal, function(e) { return e.deleted != true; });
+    }
 
-      function removeFavicon(journal) {
-        return _.map(journal, function(e) { return _.omit(e, 'id', 'favicon', 'deleted'); });
-      }
+    function removeFavicon(journal) {
+      return _.map(journal, function(e) { return _.omit(e, 'id', 'favicon', 'deleted'); });
+    }
 
-      var exportableJournal = _.compose(filterDeleted, removeFavicon)(journal);
-      var jsonJournal = JSON.stringify(exportableJournal, undefined, 2);
-      document.getElementById('journal-export').innerText = jsonJournal;
+    var exportableJournal = _.compose(filterDeleted, removeFavicon)(journal);
+    var blob = new Blob([JSON.stringify(exportableJournal, undefined, 2)], { type: 'application/json' });
+    var blobUrl = URL.createObjectURL(blob);
+    chrome.downloads.download({ url: blobUrl, saveAs: true, filename: 'tagit.bkp.json' }, function(dloadId) {
+      console.log("Downloading complete. Download id was" + JSON.stringify(dloadId));
+      continuation();
     });
-  });
-});
+  }
+}
