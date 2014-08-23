@@ -141,7 +141,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
       document.getElementById('export').addEventListener('click', function() {
         console.log("Exporting Journal ...");
-        Store.loadAll(db, Export.exportJournal);
+        Store.loadAll(db, function(journal) {
+          Export.exportJournal(journal, function(blobUrl) {
+            chrome.downloads.download({ url: blobUrl, saveAs: true, filename: 'tagit.bkp.json' }, function(dloadId) {
+              console.log("Downloading complete. Download outcome is: " + JSON.stringify(dloadId));
+            });
+          });
+        });
       });
 
       document.getElementById('search').addEventListener('keyup', function() {
