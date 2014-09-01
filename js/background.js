@@ -14,8 +14,8 @@ function setup(db) {
   chrome.commands.onCommand.addListener(function(command) {
     if (command == "save") {
       // injecting all needed dependencies
-      chrome.tabs.executeScript(null, { file: "lib/underscore-min.js" });
-      chrome.tabs.executeScript(null, { file: "lib/jquery-2.1.1.min.js" });
+      chrome.tabs.executeScript(null, { file: "./lib/underscore-min.js" });
+      chrome.tabs.executeScript(null, { file: "./lib/jquery-2.1.1.min.js" });
     } else if (command == "export") {
       chrome.tabs.create({ "url" : "html/export.html" }, function() {
         console.log("Exporting Journal ...");
