@@ -35,3 +35,4 @@ x Better exporting dloading a JSON file
 - Move to an APP
 - After moving to APP implement 'Import' with the chrome.filesystem.API
 - On an empty list show some help on how to store content
+- Put domain in the index
